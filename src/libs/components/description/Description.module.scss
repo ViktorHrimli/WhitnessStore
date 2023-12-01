@@ -1,0 +1,103 @@
+.section {
+    width: 100%;
+    min-height: 550px;
+    // height: 100vh;
+    padding-left: 37px;
+    padding-right: 37px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} 
+
+.container_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.title {
+    width: 80%;
+    color: #01020f;
+    font-size: 32px;
+    font-family: 'verdana', Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 500;
+    border-color: transparent;
+    text-align: center;
+}
+
+.line {
+    height: 1px;
+    width: 250px;
+    background-color: #01020f;
+}
+
+.text_bold {
+    width: 80%;
+    text-align: center;
+    font-family: 'Montserrat', Arial, sans-serif;
+    line-height: 31px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+    color: rgb(52, 52, 52);
+    margin-right: 4px;
+}
+
+.text {
+    width: 80%;
+    text-align: center;
+    color: #01020f;
+    font-size: 20px;
+    line-height: 1.55;
+    font-weight: 400;
+}
+
+.text_description {
+    width: 80%;
+    text-align: center;
+    color: #01020f;
+    font-size: 20px;
+    line-height: 1.55;
+    font-weight: 400;
+}
+
+.container_btn {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #242121;
+    font-size: 20px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    line-height: 1.55;
+    font-weight: 600;
+    border-width: 1px;
+    border-radius: 20px;
+    background-color: #fcfcfc;
+    background-position: center center;
+    border-color: #242121;
+    border-style: solid;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    height: 70px;
+    width: 300px;
+}

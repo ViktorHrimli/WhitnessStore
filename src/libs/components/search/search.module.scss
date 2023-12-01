@@ -1,0 +1,87 @@
+.section {
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+    @media screen and (min-width: 768px) {
+      padding-left: 80px;
+      padding-bottom: 80px;
+    }
+}
+
+
+.container_input {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  
+}
+
+.position {
+  position: relative;
+  @media screen and (max-width: 767px) {
+    width: 300px;
+    margin: auto;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 400px;
+  }
+}
+
+.input {
+  height: 60px;
+  color: #242121;
+  border: 1px solid #242121;
+  background-color: #fcfcfc;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  padding-left: 60px;
+  width: 100%;
+  outline: none;
+  @media screen and (max-width: 767px) {
+    width: 300px;
+    margin: auto;
+  }
+  
+  @media screen and (min-width: 768px) {
+    width: 400px;
+  }
+}
+
+.svg {
+  transform: scaleX(-1);
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.btn {
+  height: 60px;
+  color: #242121;
+  font-size: 20px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  line-height: 1.55;
+  font-weight: 600;
+  border-width: 1px;
+  border-radius: 10px;
+  color: #fcfcfc;
+  background-color: #242121;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-style: solid;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+
+  @media screen and (max-width: 767px) {
+    width: 300px;
+    margin: auto;
+    margin-bottom: 40px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 173px;
+  }
+}

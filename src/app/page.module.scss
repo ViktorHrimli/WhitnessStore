@@ -1,0 +1,19 @@
+@import '/src/assets/css/styles.scss';
+
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100vw;
+}
+
+.error_text {
+    cursor: pointer;
+
+    :hover {
+        text-decoration-line: underline;
+    }
+}

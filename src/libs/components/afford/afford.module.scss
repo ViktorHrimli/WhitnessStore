@@ -1,0 +1,94 @@
+.section {
+  width: 100%;
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.title {
+  width: 80%;
+  color: #01020f;
+  font-size: 32px;
+  font-family: 'verdana', Arial, sans-serif;
+  line-height: 1.55;
+  font-weight: 500;
+  background-position: center center;
+  border-color: transparent;
+  border-style: solid;
+  text-align: center;
+}
+
+.line {
+  height: 1px;
+  width: 250px;
+  background-color: #01020f;
+}
+
+.description {
+  max-width: 560px;
+  color: #01020f;
+  font-size: 20px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background-position: center center;
+  border-color: transparent;
+  border-style: solid;
+  text-align: center;
+}
+
+
+.container_card {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 30px;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.text {
+  width: 280px;
+  color: #01020f;
+  font-size: 20px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  line-height: 1.55;
+  font-weight: 400;
+  background-position: center center;
+  border-color: transparent;
+  border-style: solid;
+  text-align: center;
+  @media screen and (max-width: 767px) {
+        margin-top: 40px;
+    }
+  
+    @media screen and (min-width: 768px) {
+        margin-top: 80px;
+    }
+}

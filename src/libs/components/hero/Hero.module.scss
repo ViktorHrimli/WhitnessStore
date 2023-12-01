@@ -1,0 +1,98 @@
+.section {
+    width: 100%;
+    min-height: 550px;
+    height: 100vh;
+    z-index: 1;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @media screen and (max-width: 767px) {
+        gap:120px;
+    }
+    @media screen and (min-width: 768px) {
+        gap: 100px;
+    }
+}
+
+.title {
+    z-index: 2;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 600;
+    @media screen and (max-width: 767px) {
+        line-height: 35px;
+        font-size: 37px;
+        margin-top: 100px;
+    }
+    @media screen and (min-width: 768px) {
+        line-height: 67px;
+        font-size: 70px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        font-size: 104px;
+        line-height: 0.95;
+    }
+}   
+
+.description {
+    z-index: 2;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 400;
+    background-position: center center;
+    border-color: transparent;
+    border-style: solid;
+    text-align: center;
+    width: 300px;
+    @media screen and (max-width: 767px) {
+        line-height: 37px;
+        font-size: 24px;
+    }
+    @media screen and (min-width: 768px) {
+        line-height: 37px;
+        font-size: 24px;
+    }
+    
+    
+    @media screen and (min-width: 1024px) {
+        line-height: 1.55;
+        font-size: 26px;
+    }
+}
+
+.bacground {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7)));
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+    will-change: transform;
+}
+
+.bacground_img {
+    position: absolute;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+}
+
+.img {
+    object-fit: cover;
+    @media screen and (min-width: 320px) {
+        object-position: 15%;
+    }
+    @media screen and (min-width: 375px) {
+        object-position: 14%;
+    }
+    @media screen and (min-width: 425px) {
+        object-position: 13%;
+    }
+    @media screen and (min-width: 768px) {
+        object-position: center;
+    }
+}
