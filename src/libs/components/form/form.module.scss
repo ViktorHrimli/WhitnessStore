@@ -1,0 +1,93 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  color: #1c1b17;
+  font-size: 16px;
+  line-height: 1.55;
+  font-family: 'verdana', Arial, sans-serif;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+
+.input {
+  color: #1c1b17;
+    border: 2px solid #1c1b17;
+    height: 56px;
+    padding: 0 20px;
+    font-size: 16px;
+    line-height: 1.33;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.radio {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.text_radio {
+  color: #1c1b17;
+  font-size: 15px;
+  line-height: 1.55;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 300;
+  margin: 3px 0 10px 0;
+}
+
+.text {
+  text-align: right;
+  color: #000;
+  line-height: 1.50;
+  font-family: 'verdana', Arial, sans-serif;
+}
+
+.title_price {
+  font-size: 24px;
+  line-height: 1.35;
+  font-family: 'verdana', Arial, sans-serif;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 30px;
+  text-align: right;
+}
+
+.btn {
+  color: #242121;
+    border: 2px solid #242121;
+    font-family: Montserrat;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition-property: background-color, color, border-color, box-shadow;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    width: 100%;
+
+    text-align: center;
+    height: 60px;
+    font-size: 16px;
+    padding-left: 60px;
+    padding-right: 60px;
+    white-space: nowrap;
+    background-image: none;
+    cursor: pointer;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+    background: transparent;
+    font-family: 'verdana', Arial, sans-serif;
+}

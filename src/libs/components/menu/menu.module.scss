@@ -8,5 +8,30 @@
   display: flex;
   justify-content: center;
   padding: 85px;
+  animation: slideIn 0.7s ease;
+}
+  
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }
 
+.closed_menu {
+  z-index: 15;
+  display: block;
+  position: absolute;
+  top: 22px;
+  right: 15px;
+  @media screen and (min-width: 768px) {
+    right: 40px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
+}

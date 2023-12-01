@@ -1,0 +1,13 @@
+.section {
+  width: 100%;
+}
+
+.container {
+  @media screen and (max-width: 359px) {
+    width: 90%;
+  }
+  @media screen and (min-width: 768px) {
+    width: 90%;
+  }
+  margin: auto;
+}

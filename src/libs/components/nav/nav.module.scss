@@ -12,6 +12,9 @@
 }
 
 .link {
+  @media screen and (max-width: 1024px) {
+    overflow: hidden;
+  }
   @media screen and (min-width: 1024px) {
     display: flex;
       align-items: center;
@@ -55,11 +58,22 @@
   align-items: center;
   gap: 15px;
   color: #000000;
+  animation: slideIn 0.7s ease;
 
   @media screen and (min-width: 1024px) {
     position: absolute;
     background-color: #000000;
     width: 200px;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
   }
 }
 
@@ -79,7 +93,11 @@
 }
 
 .services_icon {
-  position: absolute;
-  top: -12px;
-  left: 91px;
+  display: none;
+  @media screen and (min-width: 1024px) {
+    display: block;
+    position: absolute;
+    top: -12px;
+    left: 91px;
+  }
 }

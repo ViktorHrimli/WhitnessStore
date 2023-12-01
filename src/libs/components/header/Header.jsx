@@ -33,14 +33,14 @@ export default function Header() {
         <div className={styles.nav}>
           <Nav />
         </div>
-        <div className={styles.btn}  onClick={openMenu} style={isMenu ? { gap: "0px" } : {}}>
-          <div className={`${styles.line} ${isMenu ? styles.closed_left : ""}`}></div>
-          <div className={`${styles.line} ${isMenu ? styles.closed_right : ""} `}></div>
-          <div className={styles.line} style={isMenu ? { display: "none" } : {}}></div>
-
+        <div className={styles.btn} onClick={openMenu}>
+          <div className={styles.line}></div>
+          <div className={styles.line}></div>
+          <div className={styles.line}></div>
         </div>
+        
         {isMenu && (
-          <Menu />
+          <Menu setIsMenu={ setIsMenu } />
         )}
       </div>
         <a href="/">

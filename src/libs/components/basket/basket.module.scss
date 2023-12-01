@@ -1,0 +1,23 @@
+.icon_basket {
+  position: fixed;
+  right: 10px;
+  top: 90px;
+  cursor: pointer;
+  z-index: 5;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  background: #fbfaf8;
+  border: 2px solid #fbfaf8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: touch 2.5s linear infinite;
+
+  @media screen and (min-width: 1024px) {
+    right: 50px;
+  }
+}
