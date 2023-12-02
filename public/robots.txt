@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://actum.fun
+Host: https://whitness-store.vercel.app/
 
 # Sitemaps
-Sitemap: https://strapi-actum.space/api/sitemap/index.xml
+Sitemap:

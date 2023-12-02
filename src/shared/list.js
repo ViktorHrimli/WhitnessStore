@@ -1,9 +1,33 @@
 export const services = [
-  "Grundlegende Unterwäsche",
-  "Erotische Unterwäsche",
-  "Designer-Unterwäsche",
-  "Lederunterwäsche",
-  "Lederaccessoires",
+  {
+    title: "Grundlegende Unterwäsche",
+    link: "basic-underwear-handmade",
+  },
+  {
+    title: "Erotische Unterwäsche",
+    link: "erotic-underwear",
+  },
+  {
+    title: "Designer-Unterwäsche",
+    link: "designer-underwear",
+  },
+  {
+    title: "Lederunterwäsche",
+    link: "leather-underwear",
+  },
+  {
+    title: "Lederaccessoires",
+    link: "leather-accessories",
+  },
 ];
 
-export const delivery = ["LIEFERUNG", "Möglichkeit zum Umnähen"];
+export const delivery = [
+  {
+    title: "LIEFERUNG",
+    link: "delivery",
+  },
+  {
+    title: "Möglichkeit zum Umnähen",
+    link: "delivery",
+  },
+];

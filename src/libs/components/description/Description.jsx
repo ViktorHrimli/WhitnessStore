@@ -16,7 +16,7 @@ export default function Description() {
             <p className={style.text_description}>Wir kreieren Unterwäsche seit 2014, und bereits Tausende von Kundinnen in der Ukraine und weltweit haben den Stil und die Qualität von Lace Culture geschätzt. Jetzt kannst auch du das tun</p>
             <ul className={style.container_btn}>
               {services.map((item, id) => (
-                <li key={id} className={style.btn}>{item}</li>
+                <li key={id} className={style.btn}>{item.title}</li>
               ))}
             </ul>    
           </div>

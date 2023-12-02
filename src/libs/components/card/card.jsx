@@ -5,7 +5,7 @@ import Photo from '@/assets/svg/card.jpeg'
 export default function Card() {
   return (
       <ul className={styles.container_cards}>
-      {Array.from({ length: 50 }, (id) => {
+      {Array.from({ length: 15 }, (id) => {
         return <li className={styles.link} key={id}>
           <div className={styles.box_img}>
           <Image 

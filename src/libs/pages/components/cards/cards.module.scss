@@ -1,0 +1,27 @@
+.section {
+  width: 100%;
+}
+
+.container {
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 110px;
+  margin-bottom: 40px;
+}
+
+.title {
+  color: #01020f;
+  font-size: 42px;
+  font-family: 'verdana', Arial, sans-serif;
+  line-height: 1.3;
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-align: start;
+  @media screen and (max-width: 767px) {
+    text-align: center;
+  }
+}

@@ -1,0 +1,39 @@
+.section {
+  width: 100%;
+}
+.container {
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.title {
+  color: #01020f;
+  font-size: 20px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  line-height: 1.55;
+  font-weight: 600;
+  
+  @media screen and (max-width: 767px) {
+      max-width: 300px;
+      margin: auto;
+    }
+}
+
+.description {
+  color: #01020f;
+  font-size: 18px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  line-height: 1.55;
+  font-weight: 400;
+  max-width: 90%;
+
+  @media screen and (max-width: 767px) {
+    max-width: 300px;
+    margin: auto;
+  }
+}
