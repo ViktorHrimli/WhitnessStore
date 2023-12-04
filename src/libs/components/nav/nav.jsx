@@ -44,7 +44,7 @@ export default function Nav() {
             </ul>
         )}
       </li>
-        <li className={styles.link}><a href="/">GRÖßENTABELLE</a></li>
+        <li className={styles.link}><a href="how-to-choose-underwear">GRÖßENTABELLE</a></li>
         
         <li className={styles.link} style={{ position: "relative" }}
           onClick={handleClickOnMenuDelivery}
