@@ -23,7 +23,7 @@ export default function Nav() {
     <>
     <ul className={styles.list}>
       <li className={styles.link}><a href="/">HAUPTSEITE</a></li>
-      <li className={styles.link}><a href="/">ZERTIFIKAT</a></li>
+      <li className={styles.link}><a href="sertificates">ZERTIFIKAT</a></li>
         <li style={{ position: "relative" }} className={styles.link}
           onClick={handleClickOnMenu}
           onMouseOver={() => setOnHover(true)}>
