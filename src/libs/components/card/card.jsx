@@ -1,15 +1,27 @@
+"use client"
+import { useState } from "react";
+
 import styles from "./card.module.scss"
 import Image from "next/image";
 import Photo from '@/assets/svg/card.jpeg'
+import ModalCards from "@/libs/modal/modaCards/modalCards";
+
+const CardImg = Photo;
+const CardTitle = "set Volcano";
+const CardText = "Сексуальный и изящный комплект с интересным дизайном";
+const CardPrice = "1 850";
 
 export default function Card() {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
   return (
+    <>
       <ul className={styles.container_cards}>
       {Array.from({ length: 15 }, (id) => {
         return <li className={styles.link} key={id}>
           <div className={styles.box_img}>
           <Image 
-            src={Photo}
+            src={CardImg}
             alt="img"
             fill
             priority={true}
@@ -17,11 +29,13 @@ export default function Card() {
             className={styles.img}
           />
         </div>
-        <h3 className={styles.title}>set Volcano</h3>
-        <p className={styles.description}>Сексуальный и изящный комплект с интересным дизайном</p>
-        <p className={styles.title}>1 850 €</p>
-        <button className={styles.btn}>In den warenkorb</button>
+        <h3 className={styles.title}>{CardTitle}</h3>
+        <p className={styles.description}>{CardText}</p>
+        <p className={styles.title}>{CardPrice}€</p>
+        <button className={styles.btn} onClick={()=> setIsOpenModal(true)}>In den warenkorb</button>
         </li>})}
       </ul>
+      {isOpenModal && <ModalCards setIsOpenModal={setIsOpenModal} CardImg={CardImg} CardTitle={CardTitle} CardText={CardText} CardPrice={CardPrice} />}
+  </>
   )
 }

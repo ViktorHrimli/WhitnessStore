@@ -1,6 +1,6 @@
 import stules from './form.module.scss'
 
-export default function Form() {
+export default function Form({totalCardPrice}) {
   return (
     <form className={stules.form} action="/submit" method="post">
       <label className={stules.title} for="name">Ihr Name</label>
@@ -42,9 +42,9 @@ export default function Form() {
       </div>
       
 
-      <p className={stules.text}>Zwischensumme: <span>0</span> €</p>
+      <p className={stules.text}>Zwischensumme: <span>{totalCardPrice.toFixed(2)}</span> €</p>
       <p className={stules.text}>Zur Post: <span>0</span> €</p>
-      <p className={stules.title_price} style={{marginBottom: "30px"}}>Gesamtsumme:  <span>0</span> €</p>
+      <p className={stules.title_price} style={{marginBottom: "30px"}}>Gesamtsumme:<span>{totalCardPrice.toFixed(2)}</span>€</p>
 
 
 

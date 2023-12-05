@@ -1,0 +1,83 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.closed {
+  z-index: 15;
+  display: block;
+  position: absolute;
+  top: 36px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.container {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.container_img {
+  width: 560px;
+  height: 560px;
+  position: relative;
+}
+
+.container_text {
+  width: 560px;
+  height: 560px;
+  border: 1px solid red;
+}
+
+.title {
+  font-size: 24px;
+  line-height: 1.35;
+  font-family: 'verdana', Arial, sans-serif;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 30px;
+}
+
+.price {
+  font-size: 20px;
+  line-height: 1.35;
+  font-family: 'verdana', Arial, sans-serif;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.btn {
+  color: #fcfcfc;
+  background-color: #242121;
+  border-radius: 10px;
+  max-width: 205px;
+  height: 45px;
+  padding-left: 30px;
+  padding-right: 30px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.description {
+  width: 250px;
+  font-size: 14px;
+  line-height: 1.55;
+  font-family: 'verdana', Arial, sans-serif;
+  font-weight: 300;
+  color: #000000;
+}
+
