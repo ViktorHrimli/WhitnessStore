@@ -20,14 +20,16 @@ export default function Header() {
     <section className={styles.section}>
       <div className={styles.container}>
         <div className={styles.logo}>
-          <Image 
-            src={Logo}
-            alt="Logo"
-            fill
-            priority={true}
-            loading="eager"
-            className={styles.logo_icon}
-          />
+          <a href="/">
+            <Image 
+              src={Logo}
+              alt="Logo"
+              fill
+              priority={true}
+              loading="eager"
+              className={styles.logo_icon}
+            />
+            </a>
         </div>
         <p className={styles.title}>LACE CULTURE</p>
         <div className={styles.nav}>

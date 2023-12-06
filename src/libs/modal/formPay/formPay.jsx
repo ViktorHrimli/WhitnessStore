@@ -14,15 +14,23 @@ export default function FormPay({ setIsOpenModal }) {
     if (storedItemsData) {
       setStoredItems(JSON.parse(storedItemsData));
     }
-  }, []);
+  }, [storedItems]);
   
   const closed = () => {
     setIsOpenModal(false);
   }
 
+  const delite = (id) => {
+    const storedItems = JSON.parse(localStorage.getItem('storedItems'));
+
+    storedItems.splice(id, 1);
+
+    localStorage.setItem('storedItems', JSON.stringify(storedItems));
+  }
+
   const totalCardPrice = storedItems.reduce((accumulator, item) => {
-  return accumulator + parseFloat(item.CardPrice);
-}, 0);
+    return accumulator + parseFloat(item.CardPrice);
+  }, 0);
 
   return (
     <div className={styles.container}>
@@ -33,9 +41,9 @@ export default function FormPay({ setIsOpenModal }) {
         <p className={styles.title}>DEINE BESTELLUNG</p>
         <div className={styles.card}>
           <ul>
-            {storedItems.map((item, index) => {
+            {storedItems.map((item, id) => {
               return(
-              <li key={index} className={styles.keys}>
+              <li key={id} className={styles.keys}>
                   <div className={styles.img}>
                     <Image 
                       src={item.CardImg}
@@ -47,7 +55,10 @@ export default function FormPay({ setIsOpenModal }) {
                     />
                   </div>
                 <p className={styles.text}>{item.CardTitle}</p>
-                <span className={styles.text}>{item.CardPrice}€</span>
+                  <span className={styles.text}>{item.CardPrice}€</span>
+                  <div className={styles.delite} onClick={()=> delite(id)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#000" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z"/></svg>
+                  </div>
               </li>)
             })}
           </ul> 

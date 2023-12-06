@@ -4,6 +4,7 @@ import styles from "./nav.module.scss"
 import { useState } from "react";
 
 import {services, delivery} from "@/shared/list"
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 export default function Nav() {
   const [onHover, setOnHover] = useState(false);
@@ -23,7 +24,7 @@ export default function Nav() {
     <>
     <ul className={styles.list}>
       <li className={styles.link}><a href="/">HAUPTSEITE</a></li>
-      <li className={styles.link}><a href="sertificates">ZERTIFIKAT</a></li>
+      <li className={styles.link} onMouseOver={() => setOnHover(false)}><a href="sertificates">ZERTIFIKAT</a></li>
         <li style={{ position: "relative" }} className={styles.link}
           onClick={handleClickOnMenu}
           onMouseOver={() => setOnHover(true)}>
@@ -44,7 +45,7 @@ export default function Nav() {
             </ul>
         )}
       </li>
-        <li className={styles.link}><a href="how-to-choose-underwear">GRÖßENTABELLE</a></li>
+        <li className={styles.link} onMouseOver={() => setOnHover(false) & setOnHoverDelivery(false)}><a href="how-to-choose-underwear">GRÖßENTABELLE</a></li>
         
         <li className={styles.link} style={{ position: "relative" }}
           onClick={handleClickOnMenuDelivery}
@@ -66,7 +67,7 @@ export default function Nav() {
             </ul>
           )}
       </li>
-      <li className={styles.link}><a href="brand-concept">MARKENKONZEPT</a></li>
+      <li className={styles.link} onMouseOver={() => setOnHoverDelivery(false)}><a href="brand-concept">MARKENKONZEPT</a></li>
     </ul>
     </>
   );

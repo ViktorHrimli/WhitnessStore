@@ -43,7 +43,16 @@ export default function ModalCards({setIsOpenModal, CardImg, CardTitle, CardText
           />
         </div>
         <div className={styles.container_text}>
-          <h3 className={styles.title}>{CardTitle}</h3>
+            <h3 className={styles.title}>{CardTitle}</h3>
+            <form action="" className={styles.form}>
+
+              <label className={styles.description}>Ausrüstung</label>
+              <select className={styles.select} required name="user_profile_color_1">
+                <option value="1">Синий</option>
+                <option value="2">Зеленый</option>
+                <option value="3">Желтый</option>
+              </select>
+            </form>
           <p className={styles.price}>{CardPrice}€</p>
           <button className={styles.btn} onClick={handleClick}>In den warenkorb</button>
           <p className={styles.description}>{CardText}</p>

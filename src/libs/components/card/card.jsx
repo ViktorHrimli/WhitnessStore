@@ -9,7 +9,7 @@ import ModalCards from "@/libs/modal/modaCards/modalCards";
 const CardImg = Photo;
 const CardTitle = "set Volcano";
 const CardText = "Сексуальный и изящный комплект с интересным дизайном";
-const CardPrice = "1 850";
+const CardPrice = "1850";
 
 export default function Card() {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -18,7 +18,7 @@ export default function Card() {
     <>
       <ul className={styles.container_cards}>
       {Array.from({ length: 15 }, (id) => {
-        return <li className={styles.link} key={id}>
+        return <li className={styles.link} key={id} onClick={()=> setIsOpenModal(true)}>
           <div className={styles.box_img}>
           <Image 
             src={CardImg}

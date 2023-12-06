@@ -55,7 +55,6 @@
   font-weight: 600;
   color: #000;
   line-height: 1.55;
-  margin-bottom: 20px;
 }
 
 .list {
@@ -77,4 +76,12 @@
   position: relative;
   width: 70px;
   height: 70px;
+}
+
+.delite {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

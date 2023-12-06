@@ -28,6 +28,6 @@ export const delivery = [
   },
   {
     title: "Möglichkeit zum Umnähen",
-    link: "delivery",
+    link: "exchange-and-returns",
   },
 ];
