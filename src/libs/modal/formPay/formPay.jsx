@@ -5,27 +5,26 @@ import Image from "next/image"
 import Form from "@/libs/components/form/form"
 import styles from "./formPay.module.scss"
 
-export default function FormPay({ setIsOpenModal }) {
-  const [storedItems, setStoredItems] = useState([]);
+export default function FormPay({ setIsOpenModal, setStoredItems , storedItems , setIsQuantity, isQuantity }) {
+  // const [storedItems, setStoredItems] = useState([]);
   
-  useEffect(() => {
-    const storedItemsData = localStorage.getItem('storedItems');
+  // useEffect(() => {
+  //   const storedItemsData = localStorage.getItem('storedItems');
 
-    if (storedItemsData) {
-      setStoredItems(JSON.parse(storedItemsData));
-    }
-  }, [storedItems]);
+  //   if (storedItemsData) {
+  //     setStoredItems(JSON.parse(storedItemsData));
+  //   }
+  // }, [storedItems]);
   
   const closed = () => {
     setIsOpenModal(false);
   }
 
-  const delite = (id) => {
-    const storedItems = JSON.parse(localStorage.getItem('storedItems'));
+  const delite = (idCard) => {
+    const deleteCard = storedItems.filter(item, id => idCard !== item.id)
+    setStoredItems(deleteCard)
 
-    storedItems.splice(id, 1);
-
-    localStorage.setItem('storedItems', JSON.stringify(storedItems));
+    // localStorage.setItem('storedItems', JSON.stringify(deleteCard));
   }
 
   const totalCardPrice = storedItems.reduce((accumulator, item) => {

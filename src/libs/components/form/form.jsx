@@ -1,3 +1,4 @@
+// import CountyCode from './country_code/CountyCode'
 import stules from './form.module.scss'
 
 export default function Form({totalCardPrice}) {
@@ -11,6 +12,7 @@ export default function Form({totalCardPrice}) {
       
       <label className={stules.title} for="phone">Ihre Telefonnummer</label>
       <input className={stules.input} type="tel" id="phone" placeholder='(999)999-99-99' name="phone" required />
+      {/* <CountyCode /> */}
       
       <label className={stules.title} for="promo">Aktionscode</label>
       <input className={stules.input} type="text" id="promo" name="promo" />
