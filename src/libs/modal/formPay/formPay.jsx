@@ -21,8 +21,8 @@ export default function FormPay({ setIsOpenModal, setStoredItems , storedItems ,
   }
 
   const delite = (idCard) => {
-    const deleteCard = storedItems.filter(item, id => idCard !== item.id)
-    setStoredItems(deleteCard)
+    // const deleteCard = storedItems.filter(item, id => idCard !== item.id)
+    // setStoredItems(deleteCard)
 
     // localStorage.setItem('storedItems', JSON.stringify(deleteCard));
   }
@@ -53,8 +53,22 @@ export default function FormPay({ setIsOpenModal, setStoredItems , storedItems ,
                       className={styles.img}
                     />
                   </div>
-                <p className={styles.text}>{item.CardTitle}</p>
-                  <span className={styles.text}>{item.CardPrice}€</span>
+                  <div style={{display: "flex", flexDirection: "column"}}>
+                    <p className={styles.text} style={{ textAlign: "left" }}>{item.CardTitle}</p>
+                    {/* options */}
+                    {item.satz.length > 0 ? <p className={styles.info}>Ausrüstung: {item.satz}</p> : ""}
+                    {item.color.length > 0 ? <p className={styles.info}>Farbe: {item.color}</p> : ""}
+                    {item.addition.length > 0 ? <p className={styles.info}>Zusatz: {item.addition}</p> : ""}
+                    {/* size  */}
+                    {item.isChestCircumference.length > 0 ? <p className={styles.info}>Unterbrustumfang: {item.isChestCircumference}</p> : ""}
+                    {item.isUnderbustMeasurement.length > 0 ? <p className={styles.info}>Brustumfang: {item.isUnderbustMeasurement}</p> : ""}
+                    {item.isHipCircumference.length > 0 ? <p className={styles.info}>Hüftumfang: {item.isHipCircumference}</p> : ""}
+                    {item.isTaillenumfang.length > 0 ? <p className={styles.info}>Taillenumfang: {item.isTaillenumfang}</p> : ""}
+
+
+                  </div>
+                  <span className={styles.text} style={{marginLeft: "auto"}}>{item.CardPrice}€</span>
+                  
                   <div className={styles.delite} onClick={()=> delite(id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#000" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z"/></svg>
                   </div>

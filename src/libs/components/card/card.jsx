@@ -50,8 +50,14 @@ export default function Card() {
         <button className={styles.btn} onClick={()=> setIsOpenModal(true)}>In den warenkorb</button>
         </li>))}
       </ul>
-        <button className={styles.btn} style={{background: "#000", color: "#fff", width: "200px"}} onClick={loadMoreCards}>Загрузить еще</button>
-      {isOpenModal && <ModalCards setIsOpenModal={setIsOpenModal} CardImg={CardImg} CardTitle={CardTitle} CardText={CardText} CardPrice={CardPrice} />}
+        <button className={styles.btn} style={{background: "#000", color: "#fff", width: "200px"}} onClick={loadMoreCards}>Mehr laden</button>
+      {isOpenModal && <ModalCards
+        setIsOpenModal={setIsOpenModal}
+        CardImg={CardImg}
+        CardTitle={CardTitle}
+        CardText={CardText}
+        CardPrice={CardPrice}
+      />}
   </>
   )
 }
