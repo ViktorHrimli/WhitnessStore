@@ -134,6 +134,7 @@ export default function ModalCards({
                   id="satz"
                   type="text"
                   />
+                    
                   <Icon onClick={onClickSatz}/>
                 </div>
               </div>
@@ -186,7 +187,7 @@ export default function ModalCards({
                 </div>
               </div>
               <div className={styles.form}>
-              <label className={styles.description} for="unterbrustumfang">Unterbrustumfang
+              <label className={styles.description}>Unterbrustumfang
                   <input className={styles.input}
                     type="text"
                     id="unterbrustumfang"
@@ -196,7 +197,7 @@ export default function ModalCards({
                   />
               </label>
 
-              <label className={styles.description} for="brustumfang">Brustumfang
+              <label className={styles.description}>Brustumfang
                   <input className={styles.input}
                     type="text"
                     id="brustumfang"
@@ -206,17 +207,17 @@ export default function ModalCards({
                   />
               </label>
               
-              <label className={styles.description} for="brustumfang">Hüftumfang
+              <label className={styles.description}>Hüftumfang
                   <input className={styles.input}
                     type="text"
-                    id="brustumfang"
-                    name="brustumfang"
+                    id="hüftumfang"
+                    name="hüftumfang"
                     placeholder="Umfang in Zentimetern"
                     onChange={handleInputChangeHipCircumference}
                   />
               </label>
 
-              <label className={styles.description} for="taillenumfang">Taillenumfang
+              <label className={styles.description}>Taillenumfang
                   <input className={styles.input}
                     type="text" id="taillenumfang"
                     name="taillenumfang"
