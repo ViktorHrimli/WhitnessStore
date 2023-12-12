@@ -12,6 +12,15 @@ export default function Sertificates() {
 
   const CardTitle = "Zertifikat";
   const CardPrice = inputValue;
+  const satz = "";
+  const color = "";
+  const addition = "";
+  const isChestCircumference = "";
+  const isUnderbustMeasurement = "";
+  const isHipCircumference = "";
+  const isTaillenumfang = "";
+
+
   
   const handleClick = (event) => {
     event.preventDefault();
@@ -19,7 +28,7 @@ export default function Sertificates() {
 
     const existingData = JSON.parse(localStorage.getItem('storedItems')) || [];
 
-    const newCardData = { CardTitle: CardTitle, CardPrice: CardPrice};
+    const newCardData = { CardTitle: CardTitle, CardPrice: CardPrice, satz, color, addition, isChestCircumference, isUnderbustMeasurement, isHipCircumference, isTaillenumfang};
 
     const updatedData = [...existingData, newCardData];
 
