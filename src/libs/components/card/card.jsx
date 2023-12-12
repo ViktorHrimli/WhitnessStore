@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 
 import styles from "./card.module.scss"
 import Image from "next/image";
@@ -11,7 +11,7 @@ const CardImg = Photo;
 const CardTitle = "set Volcano";
 const CardText = "Сексуальный и изящный комплект с интересным дизайном";
 const CardPrice = "1850";
-const CardId = uuidv4()
+// const CardId = uuidv4()
 
 export default function Card() {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -38,9 +38,8 @@ export default function Card() {
           <Image 
             src={CardImg}
             alt="img"
-            fill
             priority={true}
-            loading="eager"
+            oading="eager"
             className={styles.img}
           />
         </div>

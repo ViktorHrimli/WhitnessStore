@@ -111,7 +111,7 @@ export default function ModalCards({
           <Image 
             src={CardImg}
             alt="img"
-            fill
+            // fill
             priority={true}
             loading="eager"
             className={styles.img}
