@@ -15,10 +15,8 @@ export default function About() {
           <Image 
               src={Img}
               alt="Logo"
-              fill
               priority={true}
               loading="eager"
-              objectFit="cover"
             />
         </div>
       </div>

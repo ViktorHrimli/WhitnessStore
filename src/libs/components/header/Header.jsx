@@ -31,7 +31,6 @@ export default function Header() {
             <Image 
               src={Logo}
               alt="Logo"
-              fill
               priority={true}
               loading="eager"
               className={styles.logo_icon}

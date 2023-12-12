@@ -47,7 +47,7 @@ export default function FormPay({ setIsOpenModal, setStoredItems , storedItems ,
                     <Image 
                       src={item.CardImg}
                       alt="img"
-                      fill
+                      // fill
                       priority={true}
                       loading="eager"
                       className={styles.img}

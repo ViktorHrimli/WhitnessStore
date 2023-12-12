@@ -19,7 +19,7 @@ export default function Afford() {
             <Image 
                 src={CardOne}
                 alt="card"
-                fill
+                // fill
                 priority={true}
               loading="eager"
             />
@@ -31,7 +31,7 @@ export default function Afford() {
             <Image 
                 src={CardTwo}
                 alt="card"
-                fill
+                // fill
                 priority={true}
               loading="eager"
             />
@@ -43,7 +43,7 @@ export default function Afford() {
             <Image 
                 src={CardThree}
                 alt="card"
-                fill
+                // fill
                 priority={true}
               loading="eager"
             />
