@@ -88,13 +88,13 @@ export default function ModalCards({
       CardImg: CardImg,
       CardTitle: CardTitle,
       CardPrice: CardPrice,
-      satz,
-      color,
-      addition,
-      isChestCircumference,
-      isUnderbustMeasurement,
-      isHipCircumference,
-      isTaillenumfang,
+      satz: satz,
+      color: color,
+      addition: addition,
+      isChestCircumference: isChestCircumference,
+      isUnderbustMeasurement: isUnderbustMeasurement,
+      isHipCircumference: isHipCircumference,
+      isTaillenumfang: isTaillenumfang,
     };
     const updatedData = [...existingData, newCardData];
     localStorage.setItem('storedItems', JSON.stringify(updatedData));
@@ -239,6 +239,3 @@ export default function ModalCards({
   </>
   )
 }
-
-
-// ;s,flfjoafofsdfjosdsjfdsjfksdjfksjfksfjdksjfksjfkjskfjksdfjksfjksdjfkdsfjksjfksdfjsdkf
