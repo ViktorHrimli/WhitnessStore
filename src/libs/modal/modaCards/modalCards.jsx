@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react";
-import Image from "next/image";
 import styles from './modalCards.module.scss';
+import { CarouselDemo } from "../formPay/caruselPhoto/carusel";
 
 
 export default function ModalCards({
@@ -11,6 +11,7 @@ export default function ModalCards({
   CardText,
   CardPrice,
 }) {
+
   const [isOpenSatz, setIsOpenSatz] = useState(false);
   const [isOpenColor, setIsOpenColor] = useState(false);
   const [isOpenAddition, setIsOpenAddition] = useState(false);
@@ -107,15 +108,9 @@ export default function ModalCards({
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="#000" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z"/></svg>
       </div>
       <div className={styles.container}>
-        <div className={styles.container_img}>
-          <Image 
-            src={CardImg}
-            alt="img"
-            // fill
-            priority={true}
-            loading="eager"
-            className={styles.img}
-          />
+          <div className={styles.container_img}>
+            
+            <CarouselDemo CardImg={CardImg} />
         </div>
         <div className={styles.container_text}>
             <h3 className={styles.title}>{CardTitle}</h3>

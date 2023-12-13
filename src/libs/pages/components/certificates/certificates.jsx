@@ -4,6 +4,8 @@ import { useState } from 'react'
 
 import styles from './certificates.module.scss'
 import Basket from '@/libs/components/basket/basket';
+import sertificat from '@/assets/svg/sertificat-2.png'
+
 
 
 export default function Sertificates() {
@@ -12,6 +14,12 @@ export default function Sertificates() {
 
   const CardTitle = "Zertifikat";
   const CardPrice = inputValue;
+  const CardImg = [
+    {
+      original: sertificat,
+    }
+  ];
+
   const satz = "";
   const color = "";
   const addition = "";
@@ -28,7 +36,7 @@ export default function Sertificates() {
 
     const existingData = JSON.parse(localStorage.getItem('storedItems')) || [];
 
-    const newCardData = { CardTitle: CardTitle, CardPrice: CardPrice, satz, color, addition, isChestCircumference, isUnderbustMeasurement, isHipCircumference, isTaillenumfang};
+    const newCardData = { CardTitle: CardTitle, CardPrice: CardPrice, CardImg: CardImg, satz, color, addition, isChestCircumference, isUnderbustMeasurement, isHipCircumference, isTaillenumfang};
 
     const updatedData = [...existingData, newCardData];
 
