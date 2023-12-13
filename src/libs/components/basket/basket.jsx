@@ -6,26 +6,27 @@ import styles from "./basket.module.scss"
 
 export default function Basket() {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [isShow, setIsShow] = useState(0);
-
+  
+  const [isShow, setIsShow] = useState(false);
   const [isQuantity, setIsQuantity] = useState(0);
   const [storedItems, setStoredItems] = useState([]);
 
-  const openModal = () => {
-    setIsOpenModal(!isOpenModal)
-  }
-  useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('storedItems')) || [];
+    useEffect(() => {
+      const storedData = JSON.parse(localStorage.getItem('storedItems')) || [];
     
-    setStoredItems(storedData);
+      setStoredItems(storedData);
 
-    setIsQuantity(storedData.length);
-    setIsShow(storedData.length > 1);
-  }, [isQuantity, isShow]);
+      setIsQuantity(storedData.length);
+      setIsShow(storedData.length > 0);
+    }, [isQuantity]);
+
+    const openModal = () => {
+      setIsOpenModal(!isOpenModal)
+    }
 
   return (
     <>
-      {isShow &&  <div className={styles.container}>
+      {isShow && <div className={styles.container}>
         <div className={styles.icon_basket} onClick={openModal}>
           <svg stroke="currentColor"
             fill="black"

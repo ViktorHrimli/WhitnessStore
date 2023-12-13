@@ -1,8 +1,14 @@
-// import CountyCode from './country_code/CountyCode'
-import stules from './form.module.scss'
+'use client'
+import { useState } from 'react'
 
-export default function Form({totalCardPrice}) {
+import stules from './form.module.scss'
+import PayPal from '@/app/paypal/paypal'
+
+export default function Form({ totalCardPrice }) {
+  const [isPayPal, setIsPayPal] = useState(false);
+
   return (
+    <>
     <form className={stules.form} action="/submit" method="post">
       <label className={stules.title}>Ihr Name</label>
       <input className={stules.input} type="text" id="name" name="name" required />
@@ -30,7 +36,7 @@ export default function Form({totalCardPrice}) {
 
       <label className={stules.title}>
         Versandadresse
-          <input className={stules.input} style={{height: "136px"}} type="text" name="coment" />
+          <input className={stules.input} style={{height: "136px"}} type="text" />
       </label>
 
       <p className={stules.title}>Zahlungsmethode</p>
@@ -50,8 +56,9 @@ export default function Form({totalCardPrice}) {
 
 
 
-      <button type="submit" className={stules.btn}>ZUM KAUF WECHSELN</button>
+      <button type="submit" className={stules.btn} onClick={() => {setIsPayPal(true)}}>ZUM KAUF WECHSELN</button>
     </form>
-  
+      {isPayPal && <PayPal order={totalCardPrice.toFixed(2)} />}
+  </>
   )
 }

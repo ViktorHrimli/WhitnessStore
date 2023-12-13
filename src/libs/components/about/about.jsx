@@ -14,9 +14,11 @@ export default function About() {
         <div className={styles.container_img}>
           <Image 
               src={Img}
-              alt="Logo"
+              alt="Img"
               priority={true}
+              fill
               loading="eager"
+              objectFit="cover"
             />
         </div>
       </div>

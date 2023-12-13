@@ -20,12 +20,12 @@ export default function FormPay({ setIsOpenModal, setStoredItems , storedItems ,
     setIsOpenModal(false);
   }
 
-  const delite = (idCard) => {
-    // const deleteCard = storedItems.filter(item, id => idCard !== item.id)
-    // setStoredItems(deleteCard)
+  // const delite = (idCard) => {
+  //   const deleteCard = storedItems.filter(item, id => idCard !== item.id);
+  //   // setStoredItems(deleteCard);
 
-    // localStorage.setItem('storedItems', JSON.stringify(deleteCard));
-  }
+  //   // localStorage.setItem('storedItems', JSON.stringify(deleteCard));
+  // }
 
   const totalCardPrice = storedItems.reduce((accumulator, item) => {
     return accumulator + parseFloat(item.CardPrice);
@@ -42,12 +42,13 @@ export default function FormPay({ setIsOpenModal, setStoredItems , storedItems ,
           <ul>
             {storedItems.map((item, id) => {
               return(
-              <li key={id} className={styles.keys}>
+                <li key={id} className={styles.keys}>
                   <div className={styles.img}>
                     <Image 
-                      src={item.CardImg}
+                      src={item.CardImg[0].original}
                       alt="img"
-                      // fill
+                      width={70}
+                      height={70}
                       priority={true}
                       loading="eager"
                       className={styles.img}
