@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react";
 import styles from './modalCards.module.scss';
-import { CarouselDemo } from "../formPay/caruselPhoto/carusel";
+import { CarouselDemo } from "./caruselPhoto/carusel";
 
 
 export default function ModalCards({

@@ -5,7 +5,7 @@ import Image from "next/image"
 import Form from "@/libs/components/form/form"
 import styles from "./formPay.module.scss"
 
-export default function FormPay({ setIsOpenModal, setStoredItems , storedItems , setIsQuantity, isQuantity }) {
+export default function FormPay({ setIsOpenModal, setStoredItems , storedItems , setIsQuantity, isQuantity, }) {
   // const [storedItems, setStoredItems] = useState([]);
   
   // useEffect(() => {
@@ -15,6 +15,9 @@ export default function FormPay({ setIsOpenModal, setStoredItems , storedItems ,
   //     setStoredItems(JSON.parse(storedItemsData));
   //   }
   // }, [storedItems]);
+  // const [isScroll, setIsScroll] = useState(null);
+
+
   
   const closed = () => {
     setIsOpenModal(false);

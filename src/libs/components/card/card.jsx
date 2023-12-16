@@ -3,9 +3,9 @@ import { useState } from "react";
 // import { v4 as uuidv4 } from 'uuid';
 
 import styles from "./card.module.scss"
-import Image from "next/image";
-import Photo from '@/assets/svg/card.jpeg'
-import ModalCards from "@/libs/modal/modaCards/modalCards";
+import List from "./libs/link";
+
+  
 
 const CardImg = [
   {
@@ -39,11 +39,7 @@ const CardPrice = "1850";
 // const CardId = uuidv4()
 
 export default function Card() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [isHover, setIsHover] = useState(false);
-
-
-  const [cards, setCards] = useState(Array.from({ length: 12 }));
+  const [isCards, setCards] = useState(Array.from({ length: 12 }));
 
   const loadMoreCards = () => {
     // Вместо этого места вы можете выполнить запрос к вашему API для получения дополнительных карточек товаров
@@ -60,43 +56,17 @@ export default function Card() {
   return (
     <>
       <ul className={styles.container_cards}>
-        {cards.map((_, id) => (
-        <li className={styles.link} key={id} onClick={()=> setIsOpenModal(true)}>
-            <div className={styles.box_img} onMouseOver={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)} >
-              {isHover ? 
-                <Image
-                  src={CardImg[1].thumbnail}
-                  alt="img"
-                  width={400}
-                  height={600}
-                  priority={true}
-                  loading="eager"
-                  className={styles.img}
-                />
-              : <Image
-                  src={CardImg[0].thumbnail}
-                  alt="img"
-                  width={400}
-                  height={600}
-                  priority={true}
-                  loading="eager"
-                  className={styles.img}
-                />}
-            </div>
-        <h3 className={styles.title}>{CardTitle}</h3>
-        <p className={styles.description}>{CardText}</p>
-          <p className={styles.title}>{CardPrice}€</p>
-        <button className={styles.btn} onClick={()=> setIsOpenModal(true)}>In den warenkorb</button>
-        </li>))}
+        {isCards.map((_, id) => (
+          <>
+            <List key={id} CardImg={CardImg} CardTitle={CardTitle} CardText={CardText} CardPrice={CardPrice} />
+          </>
+        ))}
       </ul>
-        <button className={styles.btn} style={{background: "#000", color: "#fff", width: "200px"}} onClick={loadMoreCards}>Mehr laden</button>
-      {isOpenModal && <ModalCards
-        setIsOpenModal={setIsOpenModal}
-        CardImg={CardImg}
-        CardTitle={CardTitle}
-        CardText={CardText}
-        CardPrice={CardPrice}
-      />}
+      <button className={styles.btn}
+        style={{ background: "#000", color: "#fff", width: "200px" }}
+        onClick={loadMoreCards}>
+        Mehr laden
+      </button>
   </>
   )
 }

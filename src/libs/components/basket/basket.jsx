@@ -11,7 +11,27 @@ export default function Basket() {
   const [isQuantity, setIsQuantity] = useState(0);
   const [storedItems, setStoredItems] = useState([]);
 
-    useEffect(() => {
+  const [isScroll, setIsScroll] = useState(window.scrollY);
+
+
+  useEffect(() => {
+
+    if (isOpenModal) {
+      setIsScroll(window.scrollY);
+
+      document.body.style.overflow = "hidden";
+      document.body.style.maxHeight = "100vh";
+    } 
+      window.scrollTo(0, isScroll);
+
+    return () => {
+      document.body.style.overflowX = "hidden";
+      document.body.style.maxHeight = "";
+    };
+  }, [isOpenModal]);
+
+
+  useEffect(() => {
       const storedData = JSON.parse(localStorage.getItem('storedItems')) || [];
     
       setStoredItems(storedData);
@@ -42,6 +62,8 @@ export default function Basket() {
         </div>
       </div>}
       {isOpenModal && <FormPay
+
+        isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
         storedItems={storedItems}
         setStoredItems={setStoredItems}
