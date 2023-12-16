@@ -1,15 +1,24 @@
 'use client'
 import { useState } from 'react'
+import IMask from "react-input-mask";
+
 
 import stules from './form.module.scss'
 import PayPal from '@/app/paypal/paypal'
+import CountyCode from './country_code/CountyCode'
 
 export default function Form({ totalCardPrice }) {
   const [isPayPal, setIsPayPal] = useState(false);
+  const [phone, setPhone] = useState("4\\9");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [isOpenCountry, setIsOpenCountry] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
 
   return (
     <>
-    <form className={stules.form} action="/submit" method="post">
+      <form className={stules.form}
+        action="/submit" method="post">
       <label className={stules.title}>Ihr Name</label>
       <input className={stules.input} type="text" id="name" name="name" required />
 
@@ -17,9 +26,26 @@ export default function Form({ totalCardPrice }) {
       <input className={stules.input} type="email" id="email" name="email" placeholder='example@mail.com' required/>
       
       <label className={stules.title}>Ihre Telefonnummer</label>
-      <input className={stules.input} type="tel" id="phone" placeholder='(999)999-99-99' name="phone" required />
-      {/* <CountyCode /> */}
-      
+      <div style={{position: "relative"}}>
+        <IMask
+          mask={`+${phone} (999) 9999999`}
+          maskChar={" "}
+          type="text"
+          alwaysShowMask={true}
+        >
+          {(inputProps) => (
+            <input className={stules.input}
+            style={{padding: "0 70px"}}
+            type="tel"
+            id="phone"
+            // placeholder='(999)999-99-99'
+            name="phone"
+            required
+          />
+          )}
+        </IMask>
+          <CountyCode setPhone={setPhone} setPhoneNumber={setPhoneNumber} isOpenCountry={isOpenCountry} setIsOpenCountry={setIsOpenCountry}  setIsOpen={setIsOpen} />
+      </div>
       <label className={stules.title}>Aktionscode</label>
       <input className={stules.input} type="text" id="promo" name="promo" />
       

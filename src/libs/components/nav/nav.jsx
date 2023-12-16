@@ -4,7 +4,6 @@ import styles from "./nav.module.scss"
 import { useState } from "react";
 
 import {services, delivery} from "@/shared/list"
-import { faL } from "@fortawesome/free-solid-svg-icons";
 
 export default function Nav() {
   const [onHover, setOnHover] = useState(false);
