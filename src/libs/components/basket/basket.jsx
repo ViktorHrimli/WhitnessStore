@@ -11,7 +11,7 @@ export default function Basket() {
   const [isQuantity, setIsQuantity] = useState(0);
   const [storedItems, setStoredItems] = useState([]);
 
-  const [isScroll, setIsScroll] = useState(window.scrollY);
+  const [isScroll, setIsScroll] = useState(typeof window !== 'undefined' ? window.scrollY : 0);
 
 
   useEffect(() => {

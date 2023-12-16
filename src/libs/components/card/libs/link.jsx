@@ -8,7 +8,8 @@ export default function List({ CardImg, CardTitle, CardText, CardPrice}) {
   const [isHover, setIsHover] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-   const [isScroll, setIsScroll] = useState(window.scrollY);
+  const [isScroll, setIsScroll] = useState(typeof window !== 'undefined' ? window.scrollY : 0);
+
 
 
   useEffect(() => {
