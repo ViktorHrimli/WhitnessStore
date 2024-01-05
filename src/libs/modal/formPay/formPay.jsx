@@ -23,11 +23,11 @@ export default function FormPay({ setIsOpenModal, setStoredItems , storedItems ,
     setIsOpenModal(false);
   }
 
-  // const delite = (idCard) => {
-  //   const deleteCard = storedItems.filter(item, id => idCard !== item.id);
-  //   // setStoredItems(deleteCard);
+  // const delite = (id) => {
+  //   const deleteCard = storedItems.filter(id);
+  //   setStoredItems(deleteCard);
 
-  //   // localStorage.setItem('storedItems', JSON.stringify(deleteCard));
+  //   localStorage.setItem('storedItems', JSON.stringify(deleteCard));
   // }
 
   const totalCardPrice = storedItems.reduce((accumulator, item) => {
@@ -81,7 +81,6 @@ export default function FormPay({ setIsOpenModal, setStoredItems , storedItems ,
           </ul> 
         </div>
           <p className={styles.text}>Zwischensumme: <span>{totalCardPrice.toFixed(2)}</span> €</p>
-      
         <div>
           <Form totalCardPrice={totalCardPrice} />
         </div>

@@ -10,12 +10,23 @@ export default function Basket() {
   const [isShow, setIsShow] = useState(false);
   const [isQuantity, setIsQuantity] = useState(0);
   const [storedItems, setStoredItems] = useState([]);
+  const [isShowTotal, setIsShowTotal] = useState(false);
+
 
   const [isScroll, setIsScroll] = useState(typeof window !== 'undefined' ? window.scrollY : 0);
 
 
   useEffect(() => {
+      const storedData = JSON.parse(localStorage.getItem('storedItems')) || [];
+    
+      setStoredItems(storedData);
 
+      setIsQuantity(storedData.length);
+      setIsShow(storedData.length > 0);
+  }, [isQuantity]);
+
+
+    useEffect(() => {
     if (isOpenModal) {
       setIsScroll(window.scrollY);
 
@@ -29,24 +40,28 @@ export default function Basket() {
       document.body.style.maxHeight = "";
     };
   }, [isOpenModal]);
-
-
-  useEffect(() => {
-      const storedData = JSON.parse(localStorage.getItem('storedItems')) || [];
-    
-      setStoredItems(storedData);
-
-      setIsQuantity(storedData.length);
-      setIsShow(storedData.length > 0);
-    }, [isQuantity]);
-
-    const openModal = () => {
-      setIsOpenModal(!isOpenModal)
-    }
+  
+  const openModal = () => {
+    setIsOpenModal(!isOpenModal)
+  }
+  
+  const totalCardPrice = storedItems.reduce((accumulator, item) => {
+    return accumulator + parseFloat(item.CardPrice);
+  }, 0);
 
   return (
     <>
-      {isShow && <div className={styles.container}>
+      {isShow && <div className={styles.container}
+        onMouseLeave={() => setIsShowTotal(false)}
+        onMouseOver={() => setIsShowTotal(true)}>
+        
+        <div className={styles.total_price} style={isShowTotal ? { opacity: "1", zIndex: "30" } : { opacity: "0", zIndex: "-1" }}>
+          <div className={styles.icon_price}>
+                <svg className={styles.services_icon} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#292929" d="M21 20.794H3a1 1 0 0 1-.866-1.5l9-15.588a1.04 1.04 0 0 1 1.732 0l9 15.588a1 1 0 0 1-.866 1.5Z" /></svg>
+          </div>
+          <span className={styles.total_price_text}>{totalCardPrice.toFixed(0)} €</span>
+        </div>
+
         <div className={styles.icon_basket} onClick={openModal}>
           <svg stroke="currentColor"
             fill="black"
@@ -62,7 +77,6 @@ export default function Basket() {
         </div>
       </div>}
       {isOpenModal && <FormPay
-
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
         storedItems={storedItems}
