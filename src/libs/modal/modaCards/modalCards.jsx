@@ -85,7 +85,7 @@ export default function ModalCards({
     event.preventDefault();
 
     const existingData = JSON.parse(localStorage.getItem('storedItems')) || [];
-    const newCardData = {
+    const newCardData = { 
       CardImg: CardImg,
       CardTitle: CardTitle,
       CardPrice: CardPrice,

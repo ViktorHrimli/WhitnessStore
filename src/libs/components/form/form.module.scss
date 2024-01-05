@@ -5,10 +5,10 @@
 
 .title {
   color: #1c1b17;
-  font-size: 16px;
   line-height: 1.55;
   font-family: 'verdana', Arial, sans-serif;
   font-weight: 300;
+  font-size: 16px;
   margin-bottom: 5px;
 }
 
@@ -29,14 +29,23 @@
 }
 
 .flex {
+  position: relative;
   display: flex;
-  align-items: center;
+  // align-items: center;
+  margin-bottom: 10px;
+}
+
+.border {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #000 ;
+  margin-top: 4px;
 }
 
 .radio {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
+  display: none;
 }
 
 .text_radio {
@@ -45,7 +54,22 @@
   line-height: 1.55;
   font-family: 'Montserrat', Arial, sans-serif;
   font-weight: 300;
-  margin: 3px 0 10px 0;
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+.text_radio:before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 7px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.flex input:checked +.text_radio:before {
+  background-color: black; 
 }
 
 .text {

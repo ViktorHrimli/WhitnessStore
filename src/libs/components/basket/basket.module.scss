@@ -7,9 +7,42 @@
   width: 60px;
   height: 80px;
   z-index: 30;
+  transform: scale(1);
+  transition: all 0.2s ease-in-out;
   @media screen and (min-width: 1024px) {
       right: 50px;
     }
+    &:hover {
+      transform: scale(1.1);
+    }
+}
+
+.total_price {
+  position: absolute;
+  width: 100px;
+  height: 35px;
+  right: 80px;
+  top: 14px;
+  background: #292929;
+  color: #fff;
+  font-size: 15px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  transition: opacity 0.3s linear;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.total_price_text {
+  font-family: 'verdana', Arial, sans-serif;
+  font-weight: 600;
+}
+
+.icon_price {
+  position: absolute;
+  right: -14px;
+  transform: rotate(90deg);
 }
 
 .icon_basket {
