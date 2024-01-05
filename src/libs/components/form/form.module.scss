@@ -5,10 +5,10 @@
 
 .title {
   color: #1c1b17;
-  font-size: 16px;
   line-height: 1.55;
   font-family: 'verdana', Arial, sans-serif;
   font-weight: 300;
+  font-size: 16px;
   margin-bottom: 5px;
 }
 
@@ -31,7 +31,7 @@
 .flex {
   position: relative;
   display: flex;
-  align-items: center;
+  // align-items: center;
   margin-bottom: 10px;
 }
 
@@ -41,6 +41,7 @@
   height: 16px;
   border-radius: 50%;
   border: 1px solid #000 ;
+  margin-top: 4px;
 }
 
 .radio {
@@ -61,7 +62,7 @@
   content: '';
   position: absolute;
   left: 3px;
-  top: 6.4px;
+  top: 7px;
   width: 10px;
   height: 10px;
   border-radius: 50%;
