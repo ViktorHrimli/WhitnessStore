@@ -1,4 +1,3 @@
-
 import About from "@/libs/components/about/about";
 import Afford from "@/libs/components/afford/afford";
 import Description from "@/libs/components/description/Description";
@@ -7,7 +6,7 @@ import Price from "@/libs/components/price/price";
 import Search from "@/libs/components/search/search";
 import TextHome from "@/libs/pages/components/text-home/textHome";
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
       <Hero />
