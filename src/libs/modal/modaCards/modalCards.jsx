@@ -6,9 +6,9 @@ import { CarouselDemo } from "./caruselPhoto/carusel";
 export default function ModalCards({
   setIsOpenModal,
   CardImg,
-  CardTitle,
-  CardText,
-  CardPrice,
+  price,
+  title,
+  description,
   setStoredItems,
 }) {
   const [isOpenSatz, setIsOpenSatz] = useState(false);
@@ -90,8 +90,8 @@ export default function ModalCards({
     const existingData = JSON.parse(localStorage.getItem("storedItems")) || [];
     const newCardData = {
       CardImg: CardImg,
-      CardTitle: CardTitle,
-      CardPrice: CardPrice,
+      title: title,
+      price: price,
       satz: satz,
       color: color,
       addition: addition,
@@ -126,8 +126,8 @@ export default function ModalCards({
             <CarouselDemo CardImg={CardImg} />
           </div>
           <div className={styles.container_text}>
-            <h3 className={styles.title}>{CardTitle}</h3>
-            <p className={styles.price}>{CardPrice}€</p>
+            <h3 className={styles.title}>{title}</h3>
+            <p className={styles.price}>{price}€</p>
 
             <form action="" className={styles.form_container}>
               <div className={styles.form}>
@@ -264,8 +264,8 @@ export default function ModalCards({
                 )}
 
                 <div className={styles.position}>
-                  <p className={styles.description}>{CardText}</p>
-                  <p className={styles.description}>{CardText}</p>
+                  <p className={styles.description}>{description}</p>
+                  <p className={styles.description}>{description}</p>
                 </div>
               </div>
               <div className={styles.form}>
@@ -323,8 +323,8 @@ export default function ModalCards({
               </div>
             </form>
             <div className={styles.position_mob}>
-              <p className={styles.description}>{CardText}</p>
-              <p className={styles.description}>{CardText}</p>
+              <p className={styles.description}>{description}</p>
+              <p className={styles.description}>{description}</p>
             </div>
           </div>
         </div>

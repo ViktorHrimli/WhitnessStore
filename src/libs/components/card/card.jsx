@@ -44,18 +44,9 @@ const CardImg = [
       "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499420/qwerty/36877471_dpsgxn.jpg",
   },
 ];
-const CardTitle = "set Volcano";
-const CardText = "Сексуальный и изящный комплект с интересным дизайном";
-const CardPrice = "1850";
-// const CardId = uuidv4()
 
-export default function Card() {
-  const [isCards, setCards] = useState(Array.from({ length: 12 }));
+export default function Card({ data }) {
   const [storedItems, setStoredItems] = useState([]);
-
-  const loadMoreCards = () => {
-    setCards((prevCards) => [...prevCards, ...Array.from({ length: 6 })]);
-  };
 
   useEffect(() => {
     var localeData = JSON.parse(localStorage.getItem("storedItems"));
@@ -66,15 +57,13 @@ export default function Card() {
     <>
       <ul className={styles.container_cards}>
         <Basket setStoredItems={setStoredItems} storedItems={storedItems} />
-        {isCards.map((_, id) => (
+        {data.map((item, id) => (
           <>
             <List
               key={id}
               setStoredItems={setStoredItems}
               CardImg={CardImg}
-              CardTitle={CardTitle}
-              CardText={CardText}
-              CardPrice={CardPrice}
+              {...item["attributes"]}
             />
           </>
         ))}
@@ -82,7 +71,6 @@ export default function Card() {
       <button
         className={styles.btn}
         style={{ background: "#000", color: "#fff", width: "200px" }}
-        onClick={loadMoreCards}
       >
         Mehr laden
       </button>

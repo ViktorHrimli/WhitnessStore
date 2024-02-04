@@ -25,7 +25,7 @@ export default function FormPay({
   };
 
   const totalCardPrice = storedItems.reduce((accumulator, item) => {
-    return accumulator + parseFloat(item.CardPrice);
+    return accumulator + parseFloat(item.price);
   }, 0);
 
   return (
@@ -63,7 +63,7 @@ export default function FormPay({
                   </div>
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <p className={styles.text} style={{ textAlign: "left" }}>
-                      {item.CardTitle}
+                      {item.title}
                     </p>
                     {/* options */}
                     {item.satz.length > 0 ? (
@@ -112,7 +112,7 @@ export default function FormPay({
                     )}
                   </div>
                   <span className={styles.text} style={{ marginLeft: "auto" }}>
-                    {item.CardPrice}€
+                    {item.price}€
                   </span>
 
                   <div

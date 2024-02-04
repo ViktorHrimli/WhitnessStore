@@ -40,7 +40,7 @@ export default function Basket({ storedItems, setStoredItems }) {
   };
 
   const totalCardPrice = storedItems.reduce((accumulator, item) => {
-    return accumulator + parseFloat(item.CardPrice);
+    return accumulator + parseFloat(item.price);
   }, 0);
 
   return (

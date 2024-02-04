@@ -6,16 +6,22 @@ import Price from "@/libs/components/price/price";
 import Search from "@/libs/components/search/search";
 import TextHome from "@/libs/pages/components/text-home/textHome";
 
-export default function Home() {
+import { getStaticFetch } from "@/shared/shared";
+
+var Home = async () => {
+  var { data } = await getStaticFetch();
+
   return (
     <>
       <Hero />
       <Description />
       <Search />
-      <Price />
+      <Price data={data} />
       <About />
       <Afford />
       <TextHome />
     </>
   );
-}
+};
+
+export default Home;

@@ -5,13 +5,15 @@ import ModalCards from "@/libs/modal/modaCards/modalCards";
 
 export default function List({
   CardImg,
-  CardTitle,
-  CardText,
-  CardPrice,
+  title,
+  price,
+  description,
   setStoredItems,
 }) {
   const [isHover, setIsHover] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  console.log(title);
 
   const [isScroll, setIsScroll] = useState(
     typeof window !== "undefined" ? window.scrollY : 0
@@ -62,9 +64,9 @@ export default function List({
             />
           )}
         </div>
-        <h3 className={styles.title}>{CardTitle}</h3>
-        <p className={styles.description}>{CardText}</p>
-        <p className={styles.title}>{CardPrice}€</p>
+        <h3 className={styles.title}>{title}</h3>
+        <p className={styles.description}>{description}</p>
+        <p className={styles.title}>{price}€</p>
         <button className={styles.btn} onClick={() => setIsOpenModal(true)}>
           {/* In den warenkorb */}
           sehen
@@ -75,9 +77,9 @@ export default function List({
           setIsOpenModal={setIsOpenModal}
           setStoredItems={setStoredItems}
           CardImg={CardImg}
-          CardTitle={CardTitle}
-          CardText={CardText}
-          CardPrice={CardPrice}
+          title={title}
+          description={description}
+          price={price}
         />
       )}
     </>
