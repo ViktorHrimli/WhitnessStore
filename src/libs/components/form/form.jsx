@@ -7,7 +7,7 @@ import PayPal from "@/app/paypal/paypal";
 import CountyCode from "./country_code/CountyCode";
 
 export default function Form({ totalCardPrice }) {
-  const [isPayPal, setIsPayPal] = useState(false);
+  const [isPayPal, setIsPayPal] = useState(true);
   const [phone, setPhone] = useState("4\\9");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isOpenCountry, setIsOpenCountry] = useState(false);
