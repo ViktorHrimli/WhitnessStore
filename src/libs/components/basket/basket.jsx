@@ -1,17 +1,17 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 import FormPay from "@/libs/modal/formPay/formPay";
 import styles from "./basket.module.scss";
 
+import { usePerfectState } from "@/shared/shared";
+
 export default function Basket({ storedItems, setStoredItems }) {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-
-  const [isShow, setIsShow] = useState(false);
-  const [isQuantity, setIsQuantity] = useState(0);
-  const [isShowTotal, setIsShowTotal] = useState(false);
-
-  const [isScroll, setIsScroll] = useState(
+  const [isOpenModal, setIsOpenModal] = usePerfectState(false);
+  const [isShow, setIsShow] = usePerfectState(false);
+  const [isQuantity, setIsQuantity] = usePerfectState(0);
+  const [isShowTotal, setIsShowTotal] = usePerfectState(false);
+  const [isScroll, setIsScroll] = usePerfectState(
     typeof window !== "undefined" ? window.scrollY : 0
   );
 
@@ -40,7 +40,7 @@ export default function Basket({ storedItems, setStoredItems }) {
   };
 
   const totalCardPrice = storedItems.reduce((accumulator, item) => {
-    return accumulator + parseFloat(item.CardPrice);
+    return accumulator + +item.price;
   }, 0);
 
   return (

@@ -1,10 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
-// import { v4 as uuidv4 } from 'uuid';
+import { useEffect } from "react";
+import { usePerfectState } from "@/shared/hooks/useStateCustomHook";
 
 import styles from "./card.module.scss";
 import List from "./libs/link";
 import Basket from "../basket/basket";
+import { test } from "@/shared/helpers/findFieldOnObj";
 
 const CardImg = [
   {
@@ -44,18 +45,9 @@ const CardImg = [
       "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499420/qwerty/36877471_dpsgxn.jpg",
   },
 ];
-const CardTitle = "set Volcano";
-const CardText = "Сексуальный и изящный комплект с интересным дизайном";
-const CardPrice = "1850";
-// const CardId = uuidv4()
 
-export default function Card() {
-  const [isCards, setCards] = useState(Array.from({ length: 12 }));
-  const [storedItems, setStoredItems] = useState([]);
-
-  const loadMoreCards = () => {
-    setCards((prevCards) => [...prevCards, ...Array.from({ length: 6 })]);
-  };
+export default function Card({ data }) {
+  const [storedItems, setStoredItems] = usePerfectState([]);
 
   useEffect(() => {
     var localeData = JSON.parse(localStorage.getItem("storedItems"));
@@ -66,23 +58,18 @@ export default function Card() {
     <>
       <ul className={styles.container_cards}>
         <Basket setStoredItems={setStoredItems} storedItems={storedItems} />
-        {isCards.map((_, id) => (
-          <>
-            <List
-              key={id}
-              setStoredItems={setStoredItems}
-              CardImg={CardImg}
-              CardTitle={CardTitle}
-              CardText={CardText}
-              CardPrice={CardPrice}
-            />
-          </>
+        {data.map((item, id) => (
+          <List
+            key={id}
+            setStoredItems={setStoredItems}
+            CardImg={CardImg}
+            {...item["attributes"]}
+          />
         ))}
       </ul>
       <button
         className={styles.btn}
         style={{ background: "#000", color: "#fff", width: "200px" }}
-        onClick={loadMoreCards}
       >
         Mehr laden
       </button>
