@@ -1,3 +1,3 @@
-var { BASE_URL, SERVICE_URL } = process.env;
+var { BASE_URL, SERVICE_URL, UPLOADS } = process.env;
 
-export { BASE_URL, SERVICE_URL };
+export { BASE_URL, SERVICE_URL, UPLOADS };

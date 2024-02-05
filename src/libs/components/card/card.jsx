@@ -1,10 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
-// import { v4 as uuidv4 } from 'uuid';
+import { useEffect } from "react";
+import { usePerfectState } from "@/shared/hooks/useStateCustomHook";
 
 import styles from "./card.module.scss";
 import List from "./libs/link";
 import Basket from "../basket/basket";
+import { test } from "@/shared/helpers/findFieldOnObj";
 
 const CardImg = [
   {
@@ -46,7 +47,7 @@ const CardImg = [
 ];
 
 export default function Card({ data }) {
-  const [storedItems, setStoredItems] = useState([]);
+  const [storedItems, setStoredItems] = usePerfectState([]);
 
   useEffect(() => {
     var localeData = JSON.parse(localStorage.getItem("storedItems"));
@@ -58,14 +59,12 @@ export default function Card({ data }) {
       <ul className={styles.container_cards}>
         <Basket setStoredItems={setStoredItems} storedItems={storedItems} />
         {data.map((item, id) => (
-          <>
-            <List
-              key={id}
-              setStoredItems={setStoredItems}
-              CardImg={CardImg}
-              {...item["attributes"]}
-            />
-          </>
+          <List
+            key={id}
+            setStoredItems={setStoredItems}
+            CardImg={CardImg}
+            {...item["attributes"]}
+          />
         ))}
       </ul>
       <button

@@ -1,5 +1,7 @@
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { usePerfectState, searchObj, BASE_URL, UPLOADS } from "@/shared/shared";
+
 import styles from "../card.module.scss";
 import ModalCards from "@/libs/modal/modaCards/modalCards";
 
@@ -9,13 +11,12 @@ export default function List({
   price,
   description,
   setStoredItems,
+  mainImg,
+  gallery,
 }) {
-  const [isHover, setIsHover] = useState(false);
-  const [isOpenModal, setIsOpenModal] = useState(false);
-
-  console.log(title);
-
-  const [isScroll, setIsScroll] = useState(
+  var [isHover, setIsHover] = usePerfectState(false);
+  var [isOpenModal, setIsOpenModal] = usePerfectState(false);
+  var [isScroll, setIsScroll] = usePerfectState(
     typeof window !== "undefined" ? window.scrollY : 0
   );
 
@@ -44,7 +45,9 @@ export default function List({
         >
           {isHover ? (
             <Image
-              src={CardImg[1].thumbnail}
+              src={`${"https://whitness-store.online"}${
+                mainImg["data"]["attributes"]["url"]
+              }`}
               alt="img"
               width={400}
               height={600}
@@ -76,6 +79,7 @@ export default function List({
         <ModalCards
           setIsOpenModal={setIsOpenModal}
           setStoredItems={setStoredItems}
+          gallery={gallery}
           CardImg={CardImg}
           title={title}
           description={description}
