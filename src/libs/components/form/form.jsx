@@ -16,13 +16,13 @@ export default function Form({ totalCardPrice }) {
   const [totalPrice, setTotalCardPrice] = useState(totalCardPrice);
   const [isDelivery, setDelivery] = useState(0);
 
-  const deliveryPost = 3.7;
-  const deliveryHome = 4.5;
+  var deliveryPost = 3.7;
+  var deliveryHome = 4.5;
 
-  const post = () => {
+  var post = () => {
     setTotalCardPrice(totalCardPrice + deliveryPost);
   };
-  const home = () => {
+  var home = () => {
     setTotalCardPrice(totalCardPrice + deliveryHome);
   };
 
@@ -178,7 +178,7 @@ export default function Form({ totalCardPrice }) {
           ZUM KAUF WECHSELN
         </button>
       </form>
-      {isPayPal && <PayPal order={totalPrice.toFixed(2)} />}
+      {/* {isPayPal && <PayPal order={totalPrice.toFixed(2)} />} */}
     </>
   );
 }
