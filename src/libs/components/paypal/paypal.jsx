@@ -1,20 +1,25 @@
+"use client";
 import React, { useState } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
-// Renders errors or successfull transactions on the screen.
+import { PAYPAL_CLIENT_ID } from "@/shared/shared";
+
 function Message({ content }) {
   return <p>{content}</p>;
 }
 
-function PayPal({order}) {
+function PayPal({ amount }) {
   const initialOptions = {
-    "client-id": "test",
+    "client-id": PAYPAL_CLIENT_ID,
     "enable-funding": "paylater,venmo,card",
     "disable-funding": "",
     "data-sdk-integration-source": "integrationbuilder_sc",
+    currency: "EUR",
   };
 
   const [message, setMessage] = useState("");
+
+  console.log(amount);
 
   return (
     <div className="App">
@@ -23,30 +28,25 @@ function PayPal({order}) {
           style={{
             shape: "rect",
             layout: "vertical",
-            // color: "white",
           }}
           createOrder={async () => {
             try {
-              const response = await fetch("/create_order", {
+              const response = await fetch("http://localhost:8888/api/orders", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                // use the "body" param to optionally pass additional order information
-                // like product ids and quantities
                 body: JSON.stringify({
                   cart: [
                     {
-                      id: "YOUR_PRODUCT_ID",
-                      quantity: "YOUR_PRODUCT_QUANTITY",
+                      id: "23",
+                      amount: amount,
                     },
                   ],
-                  amount: {order},
                 }),
               });
 
               const orderData = await response.json();
-
               if (orderData.id) {
                 return orderData.id;
               } else {
@@ -58,20 +58,20 @@ function PayPal({order}) {
                 throw new Error(errorMessage);
               }
             } catch (error) {
-              console.error(error); 
+              console.error(error);
               setMessage(`Could not initiate PayPal Checkout...${error}`);
             }
           }}
           onApprove={async (data, actions) => {
             try {
               const response = await fetch(
-                `/api/orders/${data.orderID}/capture`,
+                `http://127.0.0.1:8888/api/orders/${data.orderID}/capture`,
                 {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
                   },
-                },
+                }
               );
 
               const orderData = await response.json();
@@ -89,7 +89,7 @@ function PayPal({order}) {
               } else if (errorDetail) {
                 // (2) Other non-recoverable errors -> Show a failure message
                 throw new Error(
-                  `${errorDetail.description} (${orderData.debug_id})`,
+                  `${errorDetail.description} (${orderData.debug_id})`
                 );
               } else {
                 // (3) Successful transaction -> Show confirmation or thank you message
@@ -97,18 +97,18 @@ function PayPal({order}) {
                 const transaction =
                   orderData.purchase_units[0].payments.captures[0];
                 setMessage(
-                  `Transaction ${transaction.status}: ${transaction.id}. See console for all available details`,
+                  `Transaction ${transaction.status}: ${transaction.id}. See console for all available details`
                 );
                 console.log(
                   "Capture result",
                   orderData,
-                  JSON.stringify(orderData, null, 2),
+                  JSON.stringify(orderData, null, 2)
                 );
               }
             } catch (error) {
               console.error(error);
               setMessage(
-                `Sorry, your transaction could not be processed...${error}`,
+                `Sorry, your transaction could not be processed...${error}`
               );
             }
           }}

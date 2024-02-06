@@ -1,9 +1,12 @@
 "use client";
 import { useState } from "react";
 import IMask from "react-input-mask";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+
+import { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } from "@/shared/shared";
 
 import stules from "./form.module.scss";
-import PayPal from "@/app/paypal/paypal";
+import PayPal from "@/libs/components/paypal/paypal";
 import CountyCode from "./country_code/CountyCode";
 
 export default function Form({ totalCardPrice }) {
@@ -36,8 +39,16 @@ export default function Form({ totalCardPrice }) {
     }
   };
 
+  const initialOptions = {
+    "client-id": PAYPAL_CLIENT_ID,
+    components: "buttons",
+    "enable-funding": "paylater,venmo,card",
+    "disable-funding": "",
+    "data-sdk-integration-source": "integrationbuilder_sc",
+  };
+
   return (
-    <>
+    <PayPalScriptProvider options={initialOptions}>
       <form className={stules.form}>
         <label className={stules.title}>Ihr Name</label>
         <input
@@ -178,7 +189,7 @@ export default function Form({ totalCardPrice }) {
           ZUM KAUF WECHSELN
         </button>
       </form>
-      {/* {isPayPal && <PayPal order={totalPrice.toFixed(2)} />} */}
-    </>
+      {true && <PayPal amount={totalPrice.toFixed(2)} />}
+    </PayPalScriptProvider>
   );
 }
