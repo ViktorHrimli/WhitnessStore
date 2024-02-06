@@ -31,20 +31,23 @@ function PayPal({ amount }) {
           }}
           createOrder={async () => {
             try {
-              const response = await fetch("http://localhost:8888/api/orders", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  cart: [
-                    {
-                      id: "23",
-                      amount: amount,
-                    },
-                  ],
-                }),
-              });
+              const response = await fetch(
+                "https://paypal-test-service.onrender.com/api/orders",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    cart: [
+                      {
+                        id: "23",
+                        amount: amount,
+                      },
+                    ],
+                  }),
+                }
+              );
 
               const orderData = await response.json();
               if (orderData.id) {
@@ -65,7 +68,7 @@ function PayPal({ amount }) {
           onApprove={async (data, actions) => {
             try {
               const response = await fetch(
-                `http://127.0.0.1:8888/api/orders/${data.orderID}/capture`,
+                `https://paypal-test-service.onrender.com/api/orders/${data.orderID}/capture`,
                 {
                   method: "POST",
                   headers: {
