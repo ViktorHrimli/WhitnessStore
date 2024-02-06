@@ -16,6 +16,7 @@ export default async function RootLayout({ children }) {
     <html lang="de-DE">
       <head>
         <script
+          async={true}
           src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=EUR`}
         ></script>
       </head>
