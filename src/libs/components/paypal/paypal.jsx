@@ -7,7 +7,7 @@ function Message({ content }) {
   return <p>{content}</p>;
 }
 
-function PayPal({ price }) {
+function PayPal({ amount }) {
   const initialOptions = {
     "client-id":
       "AV1_H7E-iJaAiLKf43XD7Bj_TjjJGy50EdrViF1qNZkVcJZvL7B9LrbGb-imMREbo5CTWifUCIGpy1qm",
@@ -18,6 +18,8 @@ function PayPal({ price }) {
   };
 
   const [message, setMessage] = useState("");
+
+  console.log(amount);
 
   return (
     <div className="App">
@@ -41,8 +43,7 @@ function PayPal({ price }) {
                   cart: [
                     {
                       id: "23",
-                      quantity: 5,
-                      amount: price,
+                      amount: amount,
                     },
                   ],
                 }),
