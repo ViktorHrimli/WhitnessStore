@@ -1,16 +1,16 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
-// Renders errors or successfull transactions on the screen.
+import { PAYPAL_CLIENT_ID } from "@/shared/shared";
+
 function Message({ content }) {
   return <p>{content}</p>;
 }
 
 function PayPal({ amount }) {
   const initialOptions = {
-    "client-id":
-      "AV1_H7E-iJaAiLKf43XD7Bj_TjjJGy50EdrViF1qNZkVcJZvL7B9LrbGb-imMREbo5CTWifUCIGpy1qm",
+    "client-id": PAYPAL_CLIENT_ID,
     "enable-funding": "paylater,venmo,card",
     "disable-funding": "",
     "data-sdk-integration-source": "integrationbuilder_sc",
@@ -36,9 +36,6 @@ function PayPal({ amount }) {
                 headers: {
                   "Content-Type": "application/json",
                 },
-
-                // use the "body" param to optionally pass additional order information
-                // like product ids and quantities
                 body: JSON.stringify({
                   cart: [
                     {
@@ -50,9 +47,6 @@ function PayPal({ amount }) {
               });
 
               const orderData = await response.json();
-
-              console.log(orderData);
-
               if (orderData.id) {
                 return orderData.id;
               } else {
