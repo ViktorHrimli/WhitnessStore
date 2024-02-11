@@ -149,7 +149,13 @@ export default function Form({ totalCardPrice }) {
         <p className={stules.title}>Zahlungsmethode</p>
         <div className={stules.flex}>
           <div className={stules.border}></div>
-          <input type="radio" id="paypal" className={stules.radio} name="pay" />
+          <input
+            type="radio"
+            id="paypal"
+            className={stules.radio}
+            name="pay"
+            onClick={() => setIsPayPal(true)}
+          />
 
           <label for="paypal" className={stules.text_radio}>
             Bezahlung der Bestellung über PayPal.
@@ -158,7 +164,13 @@ export default function Form({ totalCardPrice }) {
         <div className={stules.flex} style={{ marginBottom: "30px" }}>
           <div className={stules.border}></div>
 
-          <input type="radio" id="iban" className={stules.radio} name="pay" />
+          <input
+            type="radio"
+            id="iban"
+            className={stules.radio}
+            name="pay"
+            onClick={() => setIsPayPal(false)}
+          />
           <label for="iban" className={stules.text_radio}>
             Überweisung auf IBAN
           </label>
@@ -179,17 +191,13 @@ export default function Form({ totalCardPrice }) {
           <span> {totalPrice.toFixed(2)}</span> €
         </p>
 
-        <button
-          type="submit"
-          className={stules.btn}
-          onClick={() => {
-            setIsPayPal(true);
-          }}
-        >
-          ZUM KAUF WECHSELN
-        </button>
+        {!isPayPal && (
+          <button type="submit" className={stules.btn}>
+            ZUM KAUF WECHSELN
+          </button>
+        )}
       </form>
-      {true && <PayPal amount={totalPrice.toFixed(2)} />}
+      {isPayPal && <PayPal amount={totalPrice.toFixed(2)} />}
     </PayPalScriptProvider>
   );
 }

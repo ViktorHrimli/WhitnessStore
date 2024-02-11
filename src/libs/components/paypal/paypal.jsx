@@ -19,8 +19,6 @@ function PayPal({ amount }) {
 
   const [message, setMessage] = useState("");
 
-  console.log(amount);
-
   return (
     <div className="App">
       <PayPalScriptProvider options={initialOptions}>
