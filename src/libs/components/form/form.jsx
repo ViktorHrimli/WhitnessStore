@@ -192,7 +192,26 @@ export default function Form({ totalCardPrice }) {
         </p>
 
         {!isPayPal && (
-          <button type="submit" className={stules.btn}>
+          <button
+            type="submit"
+            className={stules.btn}
+            onClick={() => {
+              fetch("https://whitness-store.online/api/certificates", {
+                method: "UPDATE",
+                body: JSON.stringify({
+                  data: {
+                    activated: true,
+                    used: false,
+                  },
+                }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }).catch((e) => {
+                console.log(e.message);
+              });
+            }}
+          >
             ZUM KAUF WECHSELN
           </button>
         )}

@@ -1,5 +1,5 @@
 "use client";
-
+import { v4 as uuidv4 } from "uuid";
 import { usePerfectState } from "@/shared/shared";
 
 import styles from "./certificates.module.scss";
@@ -9,35 +9,63 @@ import sertificat from "@/assets/svg/sertificat-2.png";
 var Sertificates = () => {
   var [isOpen, setIsOpen] = usePerfectState(false);
   var [inputValue, setInputValue] = usePerfectState("");
+  var [storedItems, setStoredItems] = usePerfectState([]);
 
-  // const CardTitle = "Zertifikat";
-  // const CardPrice = inputValue;
-  // const CardImg = [
-  //   {
-  //     original: sertificat,
-  //   },
-  // ];
+  const CardImg = [
+    {
+      original: sertificat,
+    },
+  ];
 
-  // const satz = "";
-  // const color = "";
-  // const addition = "";
-  // const isChestCircumference = "";
-  // const isUnderbustMeasurement = "";
-  // const isHipCircumference = "";
-  // const isTaillenumfang = "";
+  const satz = "";
+  const color = "";
+  const addition = "";
+  const isChestCircumference = "";
+  const isUnderbustMeasurement = "";
+  const isHipCircumference = "";
+  const isTaillenumfang = "";
 
   var handleClick = async (event) => {
     event.preventDefault();
-    // setIsOpen(true);
+    if (!inputValue) {
+      return;
+    }
+    setIsOpen(true);
+
+    var uuid = uuidv4();
+
+    const existingData = JSON.parse(localStorage.getItem("storedItems")) || [];
+
+    const newCardData = {
+      CardTitle: "Zertifikat",
+      price: +inputValue,
+      CardImg: CardImg,
+      satz,
+      color,
+      addition,
+      isChestCircumference,
+      isUnderbustMeasurement,
+      isHipCircumference,
+      isTaillenumfang,
+      slug_id: uuid,
+    };
+
+    const updatedData = [...existingData, newCardData];
+
+    localStorage.setItem("storedItems", JSON.stringify(updatedData));
+
+    setStoredItems(updatedData);
+
+    setInputValue("");
 
     await fetch("https://whitness-store.online/api/certificates", {
       method: "POST",
       body: JSON.stringify({
         data: {
           activated: false,
-          used: "",
+          used: false,
           amount: +inputValue,
-          title: "TEST",
+          slug_id: uuid,
         },
       }),
       headers: {
@@ -46,27 +74,6 @@ var Sertificates = () => {
     }).catch((e) => {
       console.log(e.message);
     });
-
-    // const existingData = JSON.parse(localStorage.getItem("storedItems")) || [];
-
-    // const newCardData = {
-    //   CardTitle: CardTitle,
-    //   CardPrice: CardPrice,
-    //   CardImg: CardImg,
-    //   satz,
-    //   color,
-    //   addition,
-    //   isChestCircumference,
-    //   isUnderbustMeasurement,
-    //   isHipCircumference,
-    //   isTaillenumfang,
-    // };
-
-    // const updatedData = [...existingData, newCardData];
-
-    // localStorage.setItem("storedItems", JSON.stringify(updatedData));
-
-    setInputValue("");
   };
 
   return (
@@ -78,7 +85,7 @@ var Sertificates = () => {
           <form className={styles.form}>
             <input
               className={styles.input}
-              type="text"
+              type="number"
               placeholder="50"
               required
               value={inputValue}
@@ -90,7 +97,9 @@ var Sertificates = () => {
           </form>
         </div>
       </section>
-      {isOpen && <Basket storedItems={[]} setStoredItems={[]} />}
+      {isOpen && (
+        <Basket storedItems={storedItems} setStoredItems={setStoredItems} />
+      )}
     </article>
   );
 };

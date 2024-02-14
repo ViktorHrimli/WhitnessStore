@@ -47,7 +47,7 @@ const CardImg = [
 ];
 
 export default function Card({ data }) {
-  const [storedItems, setStoredItems] = usePerfectState([]);
+  var [storedItems, setStoredItems] = usePerfectState([]);
 
   useEffect(() => {
     var localeData = JSON.parse(localStorage.getItem("storedItems"));
