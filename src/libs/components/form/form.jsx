@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useEffect } from "react";
+import { usePerfectState } from "@/shared/shared";
 import IMask from "react-input-mask";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
@@ -10,14 +11,14 @@ import PayPal from "@/libs/components/paypal/paypal";
 import CountyCode from "./country_code/CountyCode";
 
 export default function Form({ totalCardPrice }) {
-  const [isPayPal, setIsPayPal] = useState(false);
-  const [phone, setPhone] = useState("4\\9");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [isOpenCountry, setIsOpenCountry] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isPayPal, setIsPayPal] = usePerfectState(false);
+  const [phone, setPhone] = usePerfectState("4\\9");
+  const [phoneNumber, setPhoneNumber] = usePerfectState("");
+  const [isOpenCountry, setIsOpenCountry] = usePerfectState(false);
+  const [isOpen, setIsOpen] = usePerfectState(false);
 
-  const [totalPrice, setTotalCardPrice] = useState(totalCardPrice);
-  const [isDelivery, setDelivery] = useState(0);
+  const [totalPrice, setTotalCardPrice] = usePerfectState(totalCardPrice);
+  const [isDelivery, setDelivery] = usePerfectState(0);
 
   var deliveryPost = 3.7;
   var deliveryHome = 4.5;
@@ -72,10 +73,14 @@ export default function Form({ totalCardPrice }) {
         <label className={stules.title}>Ihre Telefonnummer</label>
         <div style={{ position: "relative" }}>
           <IMask
-            mask={`+${phone} (999) 9999999`}
+            mask={`+${phone}(999)999 99 99`}
             maskChar={" "}
             type="text"
             alwaysShowMask={true}
+            value={phoneNumber}
+            onChange={(event) => {
+              setPhoneNumber(event.target.value);
+            }}
           >
             {() => (
               <input
@@ -195,21 +200,32 @@ export default function Form({ totalCardPrice }) {
           <button
             type="submit"
             className={stules.btn}
-            onClick={() => {
-              fetch("https://whitness-store.online/api/certificates", {
-                method: "UPDATE",
-                body: JSON.stringify({
-                  data: {
-                    activated: true,
-                    used: false,
-                  },
-                }),
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }).catch((e) => {
-                console.log(e.message);
+            onSubmit={(event) => {
+              event.preventDefault();
+
+              var data = JSON.parse(localStorage.getItem("storedItems"));
+
+              data.forEach((item) => {
+                if (item.id_cert) {
+                  fetch(
+                    `https://whitness-store.online/api/certificates/${item.id_cert}`,
+                    {
+                      method: "PUT",
+                      body: JSON.stringify({
+                        data: {
+                          activated: true,
+                        },
+                      }),
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    }
+                  ).catch((e) => {
+                    console.log(e.message);
+                  });
+                }
               });
+              localStorage.removeItem("storedItems");
             }}
           >
             ZUM KAUF WECHSELN

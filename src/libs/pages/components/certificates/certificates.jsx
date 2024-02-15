@@ -10,6 +10,7 @@ var Sertificates = () => {
   var [isOpen, setIsOpen] = usePerfectState(false);
   var [inputValue, setInputValue] = usePerfectState("");
   var [storedItems, setStoredItems] = usePerfectState([]);
+  var [id, setId] = usePerfectState(null);
 
   const CardImg = [
     {
@@ -36,28 +37,6 @@ var Sertificates = () => {
 
     const existingData = JSON.parse(localStorage.getItem("storedItems")) || [];
 
-    const newCardData = {
-      CardTitle: "Zertifikat",
-      price: +inputValue,
-      CardImg: CardImg,
-      satz,
-      color,
-      addition,
-      isChestCircumference,
-      isUnderbustMeasurement,
-      isHipCircumference,
-      isTaillenumfang,
-      slug_id: uuid,
-    };
-
-    const updatedData = [...existingData, newCardData];
-
-    localStorage.setItem("storedItems", JSON.stringify(updatedData));
-
-    setStoredItems(updatedData);
-
-    setInputValue("");
-
     await fetch("https://whitness-store.online/api/certificates", {
       method: "POST",
       body: JSON.stringify({
@@ -71,9 +50,35 @@ var Sertificates = () => {
       headers: {
         "Content-Type": "application/json",
       },
-    }).catch((e) => {
-      console.log(e.message);
-    });
+    })
+      .then((res) => res.json())
+      .then((res) => setId(+res.data.id + 1))
+      .catch((e) => {
+        console.log(e.message);
+      });
+
+    const newCardData = {
+      CardTitle: "Zertifikat",
+      price: +inputValue,
+      CardImg: CardImg,
+      satz,
+      color,
+      addition,
+      isChestCircumference,
+      isUnderbustMeasurement,
+      isHipCircumference,
+      isTaillenumfang,
+      slug_id: id ? uuid : null,
+      id_cert: id,
+    };
+
+    const updatedData = [...existingData, newCardData];
+
+    localStorage.setItem("storedItems", JSON.stringify(updatedData));
+
+    setStoredItems(updatedData);
+
+    setInputValue("");
   };
 
   return (

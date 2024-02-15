@@ -15,8 +15,7 @@ export default function CountyCode({
   isOpenCountry,
   setIsOpenCountry,
   setIsOpen,
-  }) {
-  
+}) {
   const [codeCountry, setcodeCountry] = useState("DE");
   const [filterCountry, setFilterCountry] = useState("");
 
@@ -31,9 +30,8 @@ export default function CountyCode({
 
   const handleChangeNumberCountry = (code, phone) => {
     setcodeCountry(code);
-    setPhone(phone.toString());
+    setPhone(phone.toString().replaceAll("9", `\\9`));
     setPhoneNumber("");
-    // resetField("phone");
     setIsOpen(false);
   };
 
@@ -42,9 +40,7 @@ export default function CountyCode({
   );
 
   return (
-    <div
-      className={`${styles.select_number} ${styles.width_modal}`}
-    >
+    <div className={`${styles.select_number} ${styles.width_modal}`}>
       <div className={styles.info_box} onClick={handleClick}>
         <div className={styles.image_wrapper}>
           <img
@@ -61,26 +57,23 @@ export default function CountyCode({
         className={styles.conteiner_icon}
         onClick={handleClick}
       >
-        <FontAwesomeIcon
-          icon={iconEnum["arrowOpen"]}
-          className={styles.icon}
-        />
+        <FontAwesomeIcon icon={iconEnum["arrowOpen"]} className={styles.icon} />
       </motion.div>
       {isOpenCountry && (
         <>
           <ul className={styles.code_box}>
             <li className={styles.item_list}>
               {/* <div className={stylesForm[border]}> */}
-                <div className={styles.serch_icon_wrapper}>
-                  <FontAwesomeIcon icon={iconEnum["search"]} fill="#1F1F1F" />
-                </div>
-                <input
-                  className={styles.input_search}
-                  type="text"
-                  placeholder={"Geben Sie den Namen des Landes ein"}
-                  value={filterCountry}
-                  onChange={handleInputValue}
-                />
+              <div className={styles.serch_icon_wrapper}>
+                <FontAwesomeIcon icon={iconEnum["search"]} fill="#1F1F1F" />
+              </div>
+              <input
+                className={styles.input_search}
+                type="text"
+                placeholder={"Geben Sie den Namen des Landes ein"}
+                value={filterCountry}
+                onChange={handleInputValue}
+              />
               {/* </div> */}
             </li>
             {search.map((item, id) => (
