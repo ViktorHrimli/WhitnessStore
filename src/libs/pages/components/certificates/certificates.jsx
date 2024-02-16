@@ -37,7 +37,7 @@ var Sertificates = () => {
 
     const existingData = JSON.parse(localStorage.getItem("storedItems")) || [];
 
-    await fetch("https://whitness-store.online/api/certificates", {
+    var res = await fetch("https://whitness-store.online/api/certificates", {
       method: "POST",
       body: JSON.stringify({
         data: {
@@ -52,11 +52,11 @@ var Sertificates = () => {
       },
     })
       .then((res) => res.json())
-      .then((res) => setId(+res.data.id + 1))
       .catch((e) => {
         console.log(e.message);
       });
 
+    var theId = res.data.id;
     const newCardData = {
       CardTitle: "Zertifikat",
       price: +inputValue,
@@ -68,8 +68,8 @@ var Sertificates = () => {
       isUnderbustMeasurement,
       isHipCircumference,
       isTaillenumfang,
-      slug_id: id ? uuid : null,
-      id_cert: id,
+      slug_id: theId ? uuid : null,
+      id_cert: theId,
     };
 
     const updatedData = [...existingData, newCardData];

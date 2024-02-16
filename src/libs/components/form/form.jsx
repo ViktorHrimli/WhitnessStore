@@ -16,6 +16,8 @@ export default function Form({ totalCardPrice }) {
   const [phoneNumber, setPhoneNumber] = usePerfectState("");
   const [isOpenCountry, setIsOpenCountry] = usePerfectState(false);
   const [isOpen, setIsOpen] = usePerfectState(false);
+  const [isError, setIsError] = usePerfectState(null);
+  const [theAmountCert, setTheAmountCert] = usePerfectState(0);
 
   const [totalPrice, setTotalCardPrice] = usePerfectState(totalCardPrice);
   const [isDelivery, setDelivery] = usePerfectState(0);
@@ -24,32 +26,94 @@ export default function Form({ totalCardPrice }) {
   var deliveryHome = 4.5;
 
   var post = () => {
-    setTotalCardPrice(totalCardPrice + deliveryPost);
+    setTotalCardPrice(totalCardPrice + deliveryPost - theAmountCert);
   };
   var home = () => {
-    setTotalCardPrice(totalCardPrice + deliveryHome);
+    setTotalCardPrice(totalCardPrice + deliveryHome - theAmountCert);
   };
 
   const handleDeliveryChange = (event) => {
     if (event.target.id === "post") {
-      setTotalCardPrice(totalCardPrice + deliveryPost);
+      setTotalCardPrice(totalCardPrice + deliveryPost - theAmountCert);
       setDelivery(deliveryPost);
     } else if (event.target.id === "home") {
-      setTotalCardPrice(totalCardPrice + deliveryHome);
+      setTotalCardPrice(totalCardPrice + deliveryHome - theAmountCert);
       setDelivery(deliveryHome);
     }
   };
 
-  const initialOptions = {
-    "client-id": PAYPAL_CLIENT_ID,
-    components: "buttons",
-    "enable-funding": "paylater,venmo,card",
-    "disable-funding": "",
-    "data-sdk-integration-source": "integrationbuilder_sc",
+  var theUsePromoCode = async (event) => {
+    try {
+      var cert = await fetch(
+        `https://whitness-store.online/api/certificates?filters[slug_id][$eq]=${event.target.value}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).catch((e) => {
+        throw new Error(e);
+      });
+
+      var res = await cert.json();
+
+      var cert_id = res["data"][0]["id"];
+
+      if (cert_id) {
+        fetch(`https://whitness-store.online/api/certificates/${cert_id}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            data: {
+              used: true,
+            },
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((res) => setTheAmountCert(res.data["attributes"]["amount"]))
+          .catch((e) => {
+            throw new Error(e);
+          });
+      }
+    } catch (error) {
+      setIsError("Somthing wrong!");
+    }
+  };
+
+  var doOnSubmit = (event) => {
+    event.preventDefault();
+
+    var data = JSON.parse(localStorage.getItem("storedItems"));
+    console.log(data);
+    data.forEach((item) => {
+      if (item.id_cert) {
+        console.log("wadwad");
+        fetch(
+          `https://whitness-store.online/api/certificates/${item.id_cert}`,
+          {
+            method: "PUT",
+            body: JSON.stringify({
+              data: {
+                activated: true,
+              },
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        ).catch((e) => {
+          console.log(e.message);
+        });
+      }
+    });
+    localStorage.removeItem("storedItems");
   };
 
   return (
-    <PayPalScriptProvider options={initialOptions}>
+    <>
       <form className={stules.form}>
         <label className={stules.title}>Ihr Name</label>
         <input
@@ -102,7 +166,15 @@ export default function Form({ totalCardPrice }) {
           />
         </div>
         <label className={stules.title}>Aktionscode</label>
-        <input className={stules.input} type="text" id="promo" name="promo" />
+        <input
+          className={stules.input}
+          type="text"
+          id="promo"
+          name="promo"
+          onChange={theUsePromoCode}
+        />
+
+        {isError && <h1>{isError}</h1>}
 
         {/* radio btn DELIVERY */}
         <p className={stules.title}>Lieferung</p>
@@ -115,7 +187,7 @@ export default function Form({ totalCardPrice }) {
             name="delivery"
             onClick={handleDeliveryChange}
           />
-          <label onClick={post} for="post" className={stules.text_radio}>
+          <label onClick={post} htmlFor="post" className={stules.text_radio}>
             Zur Post
           </label>
         </div>
@@ -130,7 +202,7 @@ export default function Form({ totalCardPrice }) {
             onClick={handleDeliveryChange}
           />
 
-          <label onClick={home} for="home" className={stules.text_radio}>
+          <label onClick={home} htmlFor="home" className={stules.text_radio}>
             Auf Haus
           </label>
         </div>
@@ -162,7 +234,7 @@ export default function Form({ totalCardPrice }) {
             onClick={() => setIsPayPal(true)}
           />
 
-          <label for="paypal" className={stules.text_radio}>
+          <label htmlFor="paypal" className={stules.text_radio}>
             Bezahlung der Bestellung über PayPal.
           </label>
         </div>
@@ -176,7 +248,7 @@ export default function Form({ totalCardPrice }) {
             name="pay"
             onClick={() => setIsPayPal(false)}
           />
-          <label for="iban" className={stules.text_radio}>
+          <label htmlFor="iban" className={stules.text_radio}>
             Überweisung auf IBAN
           </label>
         </div>
@@ -196,43 +268,12 @@ export default function Form({ totalCardPrice }) {
           <span> {totalPrice.toFixed(2)}</span> €
         </p>
 
-        {!isPayPal && (
-          <button
-            type="submit"
-            className={stules.btn}
-            onSubmit={(event) => {
-              event.preventDefault();
-
-              var data = JSON.parse(localStorage.getItem("storedItems"));
-
-              data.forEach((item) => {
-                if (item.id_cert) {
-                  fetch(
-                    `https://whitness-store.online/api/certificates/${item.id_cert}`,
-                    {
-                      method: "PUT",
-                      body: JSON.stringify({
-                        data: {
-                          activated: true,
-                        },
-                      }),
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                    }
-                  ).catch((e) => {
-                    console.log(e.message);
-                  });
-                }
-              });
-              localStorage.removeItem("storedItems");
-            }}
-          >
-            ZUM KAUF WECHSELN
-          </button>
-        )}
+        <button type="button" className={stules.btn} onClick={doOnSubmit}>
+          ZUM KAUF WECHSELN
+        </button>
       </form>
+
       {isPayPal && <PayPal amount={totalPrice.toFixed(2)} />}
-    </PayPalScriptProvider>
+    </>
   );
 }
