@@ -1,24 +1,24 @@
 "use client";
-import { useEffect } from "react";
-import { usePerfectState } from "@/shared/shared";
-import IMask from "react-input-mask";
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
-import { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } from "@/shared/shared";
+import { certificateApI, usePerfectState } from "@/shared/shared";
+import IMask from "react-input-mask";
 
 import stules from "./form.module.scss";
 import PayPal from "@/libs/components/paypal/paypal";
 import CountyCode from "./country_code/CountyCode";
 
 export default function Form({ totalCardPrice }) {
-  const [isPayPal, setIsPayPal] = usePerfectState(false);
   const [phone, setPhone] = usePerfectState("4\\9");
   const [phoneNumber, setPhoneNumber] = usePerfectState("");
+
   const [isOpenCountry, setIsOpenCountry] = usePerfectState(false);
   const [isOpen, setIsOpen] = usePerfectState(false);
+
   const [isError, setIsError] = usePerfectState(null);
   const [theAmountCert, setTheAmountCert] = usePerfectState(0);
+  const [idUseCertificate, setidUseCertificate] = usePerfectState(null);
 
+  // const [isPayPal, setIsPayPal] = usePerfectState(false);
   const [totalPrice, setTotalCardPrice] = usePerfectState(totalCardPrice);
   const [isDelivery, setDelivery] = usePerfectState(0);
 
@@ -44,71 +44,39 @@ export default function Form({ totalCardPrice }) {
 
   var theUsePromoCode = async (event) => {
     try {
-      var cert = await fetch(
-        `https://whitness-store.online/api/certificates?filters[slug_id][$eq]=${event.target.value}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).catch((e) => {
-        throw new Error(e);
-      });
+      setIsError(null);
+      var cert = certificateApI.getCertificated(event.target.value);
 
-      var res = await cert.json();
-
-      var cert_id = res["data"][0]["id"];
+      var cert_id = cert["data"][0]["id"];
+      setidUseCertificate(cert_id);
 
       if (cert_id) {
-        fetch(`https://whitness-store.online/api/certificates/${cert_id}`, {
-          method: "PUT",
-          body: JSON.stringify({
-            data: {
-              used: true,
-            },
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then((res) => setTheAmountCert(res.data["attributes"]["amount"]))
-          .catch((e) => {
-            throw new Error(e);
-          });
+        setTheAmountCert(res["data"][0]["attributes"]["amount"]);
+      } else {
+        setIsError("Code not found!");
       }
     } catch (error) {
       setIsError("Somthing wrong!");
     }
   };
 
-  var doOnSubmit = (event) => {
-    event.preventDefault();
-
+  var doOnSubmit = async () => {
     var data = JSON.parse(localStorage.getItem("storedItems"));
-    console.log(data);
-    data.forEach((item) => {
-      if (item.id_cert) {
-        console.log("wadwad");
-        fetch(
-          `https://whitness-store.online/api/certificates/${item.id_cert}`,
-          {
-            method: "PUT",
-            body: JSON.stringify({
-              data: {
-                activated: true,
-              },
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        ).catch((e) => {
-          console.log(e.message);
-        });
+
+    data.forEach(
+      (item) =>
+        item.id_cert && certificateApI.activatedCertificate(item.id_cert)
+    );
+
+    if (idUseCertificate) {
+      try {
+        await certificateApI.useCertificate();
+      } catch (error) {
+        console.log(error);
+        setIsError("Code not found!");
       }
-    });
+    }
+
     localStorage.removeItem("storedItems");
   };
 
@@ -223,7 +191,7 @@ export default function Form({ totalCardPrice }) {
         </label>
 
         {/* radio btn PAY */}
-        <p className={stules.title}>Zahlungsmethode</p>
+        {/* <p className={stules.title}>Zahlungsmethode</p>
         <div className={stules.flex}>
           <div className={stules.border}></div>
           <input
@@ -251,7 +219,7 @@ export default function Form({ totalCardPrice }) {
           <label htmlFor="iban" className={stules.text_radio}>
             Überweisung auf IBAN
           </label>
-        </div>
+        </div> */}
 
         <p className={stules.text}>
           Zwischensumme:
@@ -268,12 +236,12 @@ export default function Form({ totalCardPrice }) {
           <span> {totalPrice.toFixed(2)}</span> €
         </p>
 
-        <button type="button" className={stules.btn} onClick={doOnSubmit}>
+        {/* <button type="button" className={stules.btn} onClick={doOnSubmit}>
           ZUM KAUF WECHSELN
-        </button>
+        </button> */}
       </form>
 
-      {isPayPal && <PayPal amount={totalPrice.toFixed(2)} />}
+      <PayPal amount={totalPrice.toFixed(2)} doOnSubmit={doOnSubmit} />
     </>
   );
 }

@@ -8,3 +8,4 @@ export {
 } from "./env/sharedENV";
 export { usePerfectState } from "./hooks/useStateCustomHook";
 export { searchObj } from "./helpers/findFieldOnObj";
+export { certificateApI } from "./api/certificateApi";

@@ -1,6 +1,6 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
-import { usePerfectState } from "@/shared/shared";
+import { usePerfectState, certificateApI } from "@/shared/shared";
 
 import styles from "./certificates.module.scss";
 import Basket from "@/libs/components/basket/basket";
@@ -10,7 +10,6 @@ var Sertificates = () => {
   var [isOpen, setIsOpen] = usePerfectState(false);
   var [inputValue, setInputValue] = usePerfectState("");
   var [storedItems, setStoredItems] = usePerfectState([]);
-  var [id, setId] = usePerfectState(null);
 
   const CardImg = [
     {
@@ -37,26 +36,17 @@ var Sertificates = () => {
 
     const existingData = JSON.parse(localStorage.getItem("storedItems")) || [];
 
-    var res = await fetch("https://whitness-store.online/api/certificates", {
-      method: "POST",
-      body: JSON.stringify({
-        data: {
-          activated: false,
-          used: false,
-          amount: +inputValue,
-          slug_id: uuid,
-        },
-      }),
-      headers: {
-        "Content-Type": "application/json",
+    var options = {
+      data: {
+        activated: false,
+        used: false,
+        amount: +inputValue,
+        slug_id: uuid,
       },
-    })
-      .then((res) => res.json())
-      .catch((e) => {
-        console.log(e.message);
-      });
+    };
 
-    var theId = res.data.id;
+    var theId = await certificateApI.createCertificate(options);
+
     const newCardData = {
       CardTitle: "Zertifikat",
       price: +inputValue,

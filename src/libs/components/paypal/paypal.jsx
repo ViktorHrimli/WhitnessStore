@@ -1,14 +1,20 @@
 "use client";
-import React, { useState } from "react";
+
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
-import { PAYPAL_CLIENT_ID } from "@/shared/shared";
+import {
+  PAYPAL_CLIENT_ID,
+  usePerfectState,
+  certificateApI,
+} from "@/shared/shared";
 
 function Message({ content }) {
-  return <p>{content}</p>;
+  return <h1>{content}</h1>;
 }
 
-function PayPal({ amount }) {
+function PayPal({ amount, doOnSubmit }) {
+  const [message, setMessage] = usePerfectState("");
+
   const initialOptions = {
     "client-id": PAYPAL_CLIENT_ID,
     "enable-funding": "paylater,venmo,card",
@@ -17,7 +23,16 @@ function PayPal({ amount }) {
     currency: "EUR",
   };
 
-  const [message, setMessage] = useState("");
+  var succsesFullPay = () => {
+    var data = JSON.parse(localStorage.getItem("storedItems"));
+
+    data.forEach(
+      (item) =>
+        item.id_cert && certificateApI.activatedCertificate(item.id_cert)
+    );
+
+    localStorage.removeItem("storedItems");
+  };
 
   return (
     <div className="App">
@@ -76,9 +91,6 @@ function PayPal({ amount }) {
               );
 
               const orderData = await response.json();
-
-              //   (3) Successful transaction -> Show confirmation or thank you message
-
               const errorDetail = orderData?.details?.[0];
 
               if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
@@ -90,6 +102,9 @@ function PayPal({ amount }) {
               } else {
                 // (3) Successful transaction -> Show confirmation or thank you message
                 // Or go to another URL:  actions.redirect('thank_you.html');
+                succsesFullPay();
+                doOnSubmit();
+                actions.redirect("/sertificates");
                 const transaction =
                   orderData.purchase_units[0].payments.captures[0];
                 setMessage(
