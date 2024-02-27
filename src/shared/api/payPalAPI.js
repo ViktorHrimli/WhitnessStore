@@ -1,24 +1,24 @@
+var { SANDBOX_TEST_SERVER_URL, MODE, LIVE_SERVER_URL } = process.env;
+
 class PayPAl {
-  BASE_URL = "";
+  BASE_URL = MODE === "dev" ? SANDBOX_TEST_SERVER_URL : LIVE_SERVER_URL;
   async doCreateOreder() {
+    console.log(this.BASE_URL);
     try {
-      const response = await fetch(
-        "https://paypal-test-service.onrender.com/api/orders",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            cart: [
-              {
-                id: "23",
-                amount: amount,
-              },
-            ],
-          }),
-        }
-      );
+      const response = await fetch(`${this.BASE_URL}/api/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cart: [
+            {
+              id: "23",
+              amount: amount,
+            },
+          ],
+        }),
+      });
 
       const orderData = await response.json();
       if (orderData.id) {

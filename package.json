@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "start": "next start",
+    "start": "next start && npm run server-dev",
     "build": "next build",
     "lint": "next lint",
     "latest": "git pull origin && npm i && npm run build && npm start",
@@ -48,12 +48,14 @@
     "react-responsive": "^9.0.2",
     "react-responsive-carousel": "^3.2.23",
     "react-slideshow-image": "^4.3.0",
+    "cors": "^2.8.5",
     "sharp": "^0.32.6",
     "uuid": "^9.0.1",
     "yet-another-react-lightbox": "^3.15.6"
   },
   "devDependencies": {
     "sass": "1.63.4",
+    "nodemon": "^3.0.1",
     "stylelint-config-standard-scss": "9.0.0",
     "stylelint-scss": "5.0.1"
   }
