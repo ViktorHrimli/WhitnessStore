@@ -1,26 +1,27 @@
 "use client";
 
-import { certificateApI, usePerfectState } from "@/shared/shared";
+import { certificateApI } from "@/shared/shared";
 import IMask from "react-input-mask";
 
 import stules from "./form.module.scss";
 import PayPal from "@/libs/components/paypal/paypal";
 import CountyCode from "./country_code/CountyCode";
+import { useState } from "react";
 
 export default function Form({ totalCardPrice }) {
-  const [phone, setPhone] = usePerfectState("4\\9");
-  const [phoneNumber, setPhoneNumber] = usePerfectState("");
+  const [phone, setPhone] = useState("4\\9");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
-  const [isOpenCountry, setIsOpenCountry] = usePerfectState(false);
-  const [isOpen, setIsOpen] = usePerfectState(false);
+  const [isOpenCountry, setIsOpenCountry] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [isError, setIsError] = usePerfectState(null);
-  const [theAmountCert, setTheAmountCert] = usePerfectState(0);
-  const [idUseCertificate, setidUseCertificate] = usePerfectState(null);
+  const [isError, setIsError] = useState(null);
+  const [theAmountCert, setTheAmountCert] = useState(0);
+  const [useId, setUseID] = useState(null);
 
-  // const [isPayPal, setIsPayPal] = usePerfectState(false);
-  const [totalPrice, setTotalCardPrice] = usePerfectState(totalCardPrice);
-  const [isDelivery, setDelivery] = usePerfectState(0);
+  // const [isPayPal, setIsPayPal] = useState(false);
+  const [totalPrice, setTotalCardPrice] = useState(totalCardPrice);
+  const [isDelivery, setDelivery] = useState(0);
 
   var deliveryPost = 3.7;
   var deliveryHome = 4.5;
@@ -45,13 +46,13 @@ export default function Form({ totalCardPrice }) {
   var theUsePromoCode = async (event) => {
     try {
       setIsError(null);
-      var cert = certificateApI.getCertificated(event.target.value);
+      var cert = await certificateApI.getCertificated(event.target.value);
 
-      var cert_id = cert["data"][0]["id"];
-      setidUseCertificate(cert_id);
+      var cert_id = await cert["data"][0]["id"];
 
-      if (cert_id) {
-        setTheAmountCert(res["data"][0]["attributes"]["amount"]);
+      setUseID(cert_id);
+      if (Boolean(cert_id)) {
+        setTheAmountCert(cert["data"][0]["attributes"]["amount"]);
       } else {
         setIsError("Code not found!");
       }
@@ -61,16 +62,10 @@ export default function Form({ totalCardPrice }) {
   };
 
   var doOnSubmit = async () => {
-    var data = JSON.parse(localStorage.getItem("storedItems"));
+    await certificateApI.useCertificate(52);
 
-    data.forEach(
-      (item) =>
-        item.id_cert && certificateApI.activatedCertificate(item.id_cert)
-    );
-
-    if (idUseCertificate) {
+    if (Boolean(useId)) {
       try {
-        await certificateApI.useCertificate();
       } catch (error) {
         console.log(error);
         setIsError("Code not found!");

@@ -3,7 +3,6 @@ var { SANDBOX_TEST_SERVER_URL, MODE, LIVE_SERVER_URL } = process.env;
 class PayPAl {
   BASE_URL = MODE === "dev" ? SANDBOX_TEST_SERVER_URL : LIVE_SERVER_URL;
   async doCreateOreder() {
-    console.log(this.BASE_URL);
     try {
       const response = await fetch(`${this.BASE_URL}/api/orders`, {
         method: "POST",
@@ -33,7 +32,7 @@ class PayPAl {
       }
     } catch (error) {
       console.error(error);
-      setMessage(`Could not initiate PayPal Checkout...${error}`);
+      // setMessage(`Could not initiate PayPal Checkout...${error}`);
     }
   }
 }

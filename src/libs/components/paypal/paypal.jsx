@@ -10,7 +10,7 @@ import {
 } from "@/shared/shared";
 
 function Message({ content }) {
-  return <h1>{content}</h1>;
+  return <h1 style={{ color: "red" }}>{content}</h1>;
 }
 
 function PayPal({ amount, doOnSubmit }) {
@@ -29,7 +29,15 @@ function PayPal({ amount, doOnSubmit }) {
 
     data.forEach(
       (item) =>
-        item.id_cert && certificateApI.activatedCertificate(item.id_cert)
+        item.CardTitle === "Zertifikat" &&
+        certificateApI.createCertificate({
+          data: {
+            activated: true,
+            used: false,
+            amount: item.price,
+            slug_id: item.slug_id,
+          },
+        })
     );
 
     localStorage.removeItem("storedItems");
@@ -98,11 +106,9 @@ function PayPal({ amount, doOnSubmit }) {
                   `${errorDetail.description} (${orderData.debug_id})`
                 );
               } else {
-                // (3) Successful transaction -> Show confirmation or thank you message
-                // Or go to another URL:  actions.redirect('thank_you.html');
                 succsesFullPay();
                 doOnSubmit();
-                actions.redirect("/sertificates");
+                // actions.redirect("https://www.actum.com.ua/");
                 const transaction =
                   orderData.purchase_units[0].payments.captures[0];
                 setMessage(

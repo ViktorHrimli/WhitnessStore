@@ -1,15 +1,16 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
-import { usePerfectState, certificateApI } from "@/shared/shared";
+import { useState } from "react";
 
 import styles from "./certificates.module.scss";
 import Basket from "@/libs/components/basket/basket";
 import sertificat from "@/assets/svg/sertificat-2.png";
 
 var Sertificates = () => {
-  var [isOpen, setIsOpen] = usePerfectState(false);
-  var [inputValue, setInputValue] = usePerfectState("");
-  var [storedItems, setStoredItems] = usePerfectState([]);
+  var [isOpen, setIsOpen] = useState(false);
+  var [inputValue, setInputValue] = useState(50);
+  var [storedItems, setStoredItems] = useState([]);
+  var [isError, setIsError] = useState(false);
 
   const CardImg = [
     {
@@ -30,26 +31,22 @@ var Sertificates = () => {
     if (!inputValue) {
       return;
     }
+
+    if (inputValue < 50) {
+      setIsError(true);
+
+      return;
+    }
+
     setIsOpen(true);
 
     var uuid = uuidv4();
 
     const existingData = JSON.parse(localStorage.getItem("storedItems")) || [];
 
-    var options = {
-      data: {
-        activated: false,
-        used: false,
-        amount: +inputValue,
-        slug_id: uuid,
-      },
-    };
-
-    var theId = await certificateApI.createCertificate(options);
-
     const newCardData = {
       CardTitle: "Zertifikat",
-      price: +inputValue,
+      price: inputValue,
       CardImg: CardImg,
       satz,
       color,
@@ -58,8 +55,8 @@ var Sertificates = () => {
       isUnderbustMeasurement,
       isHipCircumference,
       isTaillenumfang,
-      slug_id: theId ? uuid : null,
-      id_cert: theId,
+      slug_id: uuid,
+      id_cert: uuid,
     };
 
     const updatedData = [...existingData, newCardData];
@@ -86,6 +83,8 @@ var Sertificates = () => {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
             />
+
+            {isError && <h1>More 50</h1>}
             <button className={styles.btn} onClick={handleClick}>
               Kaufen
             </button>

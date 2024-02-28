@@ -31,7 +31,7 @@ class CertificateApI {
   async getCertificated(uuid) {
     try {
       var res = await fetch(
-        `${baseURL}${this.api}?filters[slug_id][$eq]=${uuid}`,
+        `${this.baseURL}${this.api}?filters[slug_id][$eq]=${uuid}`,
         {
           method: this.method.GET,
           headers: this.headers,
@@ -46,9 +46,10 @@ class CertificateApI {
     }
   }
 
-  async useCertificate() {
+  async useCertificate(idUseCertificate) {
+    console.log(idUseCertificate);
     try {
-      await fetch(`${baseURL}${this.api}/${idUseCertificate}`, {
+      await fetch(`${this.baseURL}${this.api}/${idUseCertificate}`, {
         method: this.method.PUT,
         body: JSON.stringify({
           data: {
