@@ -47,7 +47,6 @@ class CertificateApI {
   }
 
   async useCertificate(idUseCertificate) {
-    console.log(idUseCertificate);
     try {
       await fetch(`${this.baseURL}${this.api}/${idUseCertificate}`, {
         method: this.method.PUT,

@@ -6,7 +6,7 @@ import IMask from "react-input-mask";
 import stules from "./form.module.scss";
 import PayPal from "@/libs/components/paypal/paypal";
 import CountyCode from "./country_code/CountyCode";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Form({ totalCardPrice }) {
   const [phone, setPhone] = useState("4\\9");
@@ -14,6 +14,7 @@ export default function Form({ totalCardPrice }) {
 
   const [isOpenCountry, setIsOpenCountry] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [onSubmit, setOnSubmit] = useState(false);
 
   const [isError, setIsError] = useState(null);
   const [theAmountCert, setTheAmountCert] = useState(0);
@@ -61,19 +62,16 @@ export default function Form({ totalCardPrice }) {
     }
   };
 
-  var doOnSubmit = async () => {
-    await certificateApI.useCertificate(52);
-
-    if (Boolean(useId)) {
-      try {
-      } catch (error) {
-        console.log(error);
-        setIsError("Code not found!");
-      }
-    }
+  var doOnSubmit = () => {
+    setOnSubmit(!onSubmit);
 
     localStorage.removeItem("storedItems");
   };
+
+  useEffect(() => {
+    console.log(useId);
+    certificateApI.useCertificate(useId);
+  }, [onSubmit]);
 
   return (
     <>
