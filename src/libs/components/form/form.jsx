@@ -70,7 +70,9 @@ export default function Form({ totalCardPrice }) {
 
   useEffect(() => {
     console.log(useId);
-    certificateApI.useCertificate(useId);
+    if (useId) {
+      certificateApI.useCertificate(useId);
+    }
   }, [onSubmit]);
 
   return (

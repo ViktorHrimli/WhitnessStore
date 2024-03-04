@@ -5,7 +5,7 @@ import { Montserrat } from "next/font/google";
 import Header from "@/libs/components/header/Header";
 import Footer from "@/libs/components/footer/Footer";
 
-import { PAYPAL_CLIENT_ID } from "@/shared/shared";
+import { PAYPAL_CLIENT_ID, CLIENT_TOKEN } from "@/shared/shared";
 
 import styles from "./page.module.scss";
 
@@ -17,8 +17,13 @@ export default async function RootLayout({ children }) {
       <head>
         <script
           async={true}
-          src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=EUR`}
+          src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&components=hosted-fields,buttons,googlepay,applepay&currency=EUR`}
         ></script>
+
+        {/* <script
+          async={true}
+          src="https://pay.google.com/gp/p/js/pay.js"
+        ></script> */}
       </head>
 
       <body className={montserrat.className}>
