@@ -2,8 +2,9 @@
 
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useEffect, useState } from "react";
-import { PAYPAL_CLIENT_ID, certificateApI, payPalApi } from "@/shared/shared";
+import { PAYPAL_CLIENT_ID, certificateApI } from "@/shared/shared";
 import { PaymentForm } from "./FormPayPal";
+import onGooglePayLoaded from "./Google_pay";
 
 function Message({ content }) {
   return <h1 style={{ color: "red" }}>{content}</h1>;
@@ -18,8 +19,8 @@ function PayPal({ amount, doOnSubmit }) {
     "enable-funding": "paylater,venmo",
     "disable-funding": "",
     "data-sdk-integration-source": "integrationbuilder_ac",
-    "data-client-token": clientToken,
-    components: "hosted-fields,buttons",
+    dataClientToken: clientToken,
+    components: "hosted-fields,buttons,googlepay",
     currency: "EUR",
   };
 
@@ -47,15 +48,25 @@ function PayPal({ amount, doOnSubmit }) {
       method: "POST",
     })
       .then((res) => res.json())
-      .then((res) => setClientToken(res.client_token));
+      .then((res) => {
+        setClientToken(res.client_token);
+        onGooglePayLoaded();
+      });
   }, []);
 
   return (
-    <div className="App">
-      {clientToken && (
-        <PayPalScriptProvider options={initialOptions}>
-          <PaymentForm />
-          {/* <PayPalButtons
+    clientToken && (
+      <PayPalScriptProvider options={initialOptions}>
+        <PaymentForm />
+        <Message content={message} />
+      </PayPalScriptProvider>
+    )
+  );
+}
+
+export default PayPal;
+{
+  /* <PayPalButtons
             style={{
               shape: "rect",
               layout: "vertical",
@@ -139,12 +150,5 @@ function PayPal({ amount, doOnSubmit }) {
                 );
               }
             }}
-          /> */}
-        </PayPalScriptProvider>
-      )}
-      <Message content={message} />
-    </div>
-  );
+          /> */
 }
-
-export default PayPal;

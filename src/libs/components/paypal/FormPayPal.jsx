@@ -142,7 +142,7 @@ const Message = ({ content }) => {
 export const PaymentForm = () => {
   const [message, setMessage] = useState("");
   return (
-    <div className={styles.form}>
+    <div className={styles.form} id="container-paypal">
       <PayPalButtons
         style={{
           shape: "rect",
@@ -160,6 +160,7 @@ export const PaymentForm = () => {
             hostedFieldType="number"
             options={{
               selector: "#card-number",
+              formatInput: true,
               placeholder: "Card Number",
             }}
             className={styles.input}
@@ -199,8 +200,8 @@ export const PaymentForm = () => {
               className={styles.input}
             />
           </div>
-          <SubmitPayment onHandleMessage={setMessage} />
         </div>
+        <SubmitPayment onHandleMessage={setMessage} />
       </PayPalHostedFieldsProvider>
       <Message content={message} />
     </div>

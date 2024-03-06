@@ -234,9 +234,9 @@ export default function Form({ totalCardPrice }) {
         {/* <button type="button" className={stules.btn} onClick={doOnSubmit}>
           ZUM KAUF WECHSELN
         </button> */}
-      </form>
 
-      <PayPal amount={totalPrice.toFixed(2)} doOnSubmit={doOnSubmit} />
+        <PayPal amount={totalPrice.toFixed(2)} doOnSubmit={doOnSubmit} />
+      </form>
     </>
   );
 }
