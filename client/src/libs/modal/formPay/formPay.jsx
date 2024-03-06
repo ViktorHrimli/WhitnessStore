@@ -11,6 +11,12 @@ export default function FormPay({
   storedItems,
   setIsQuantity,
 }) {
+  const [totalCardPrice, setTotalPriceCard] = useState(() => {
+    return storedItems.reduce((accumulator, item) => {
+      return accumulator + +item.price;
+    }, 0);
+  });
+
   const closed = () => {
     setIsOpenModal(false);
   };
@@ -20,13 +26,14 @@ export default function FormPay({
 
     setStoredItems(deleteCard);
     setIsQuantity(deleteCard.length);
+    var totalPrice = deleteCard.reduce((accumulator, item) => {
+      return accumulator + +item.price;
+    }, 0);
+
+    setTotalPriceCard(totalPrice);
 
     localStorage.setItem("storedItems", JSON.stringify(deleteCard));
   };
-
-  const totalCardPrice = storedItems.reduce((accumulator, item) => {
-    return accumulator + parseFloat(item.price);
-  }, 0);
 
   return (
     <div className={styles.container}>
@@ -139,9 +146,9 @@ export default function FormPay({
         <p className={styles.text}>
           Zwischensumme: <span>{totalCardPrice.toFixed(2)}</span> €
         </p>
-        <div>
+        <>
           <Form totalCardPrice={totalCardPrice} />
-        </div>
+        </>
       </div>
     </div>
   );
