@@ -73,8 +73,7 @@ export default function ModalCards({
   };
 
   // icon
-  const Icon = (props) => {
-    const { onClick } = props;
+  const Icon = ({ onClick }) => {
     return (
       <div className={styles.icon} onClick={onClick}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -103,12 +102,13 @@ export default function ModalCards({
       isHipCircumference: isHipCircumference,
       isTaillenumfang: isTaillenumfang,
     };
+
     const updatedData = [...existingData, newCardData];
     setStoredItems(updatedData);
+
     localStorage.setItem("storedItems", JSON.stringify(updatedData));
   };
 
-  console.log(addition);
   return (
     <>
       <div className={styles.modal}>
@@ -142,7 +142,7 @@ export default function ModalCards({
                       className={styles.select}
                       required
                       onClick={onClickSatz}
-                      value={satz}
+                      value={satz ? satz : equipment[0]["item"]}
                       readOnly
                       id="satz"
                       type="text"
@@ -205,7 +205,7 @@ export default function ModalCards({
                     <input
                       className={styles.select}
                       required
-                      value={addition}
+                      value={addition ? addition : additionData[0]["item"]}
                       readOnly
                       id="addition"
                       type="text"
