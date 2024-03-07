@@ -12,6 +12,9 @@ export default function List({
   description,
   setStoredItems,
   mainImg,
+  farbe,
+  equipment,
+  addition,
   gallery,
 }) {
   var [isHover, setIsHover] = usePerfectState(false);
@@ -80,6 +83,9 @@ export default function List({
           setIsOpenModal={setIsOpenModal}
           setStoredItems={setStoredItems}
           gallery={gallery}
+          additionData={addition}
+          equipment={equipment}
+          farbe={farbe}
           CardImg={CardImg}
           title={title}
           description={description}
