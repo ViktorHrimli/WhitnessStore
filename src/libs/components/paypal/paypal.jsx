@@ -55,20 +55,23 @@ function PayPal({ amount, doOnSubmit, totalPrice }) {
         }}
         createOrder={async () => {
           try {
-            const response = await fetch("http://localhost:8888/api/orders", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                cart: [
-                  {
-                    id: "23",
-                    amount: price,
-                  },
-                ],
-              }),
-            });
+            const response = await fetch(
+              "https://www.space-test-space.space/api/orders",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  cart: [
+                    {
+                      id: "23",
+                      amount: price,
+                    },
+                  ],
+                }),
+              }
+            );
 
             const orderData = await response.json();
             if (orderData.id) {
@@ -89,7 +92,7 @@ function PayPal({ amount, doOnSubmit, totalPrice }) {
         onApprove={async (data, actions) => {
           try {
             const response = await fetch(
-              `http://localhost:8888/api/orders/${data.orderID}/capture`,
+              `https://www.space-test-space.space/api/orders/${data.orderID}/capture`,
               {
                 method: "POST",
                 headers: {
