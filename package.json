@@ -1,17 +1,12 @@
 {
   "scripts": {
-    "start": "next start",
-    "build": "next build",
+    "build": "cd client && npm run build",
     "install-client": "cd client && npm i && npm run build",
     "install-server": "cd server && npm i",
-    "initions": "npm run install-client && npm run install-server",
-    "start-client": "cd client && npm start",
-    "start-server": "cd server && npm start && cd ..",
-    "start-project": "npm run start-server && npm run start-client",
-    "frontend": "npm dev --prefix ../client/",
-    "backend": "npm dev --prefix ../server/",
+    "initions": "npm i && npm run install-client && npm run install-server",
     "clear": "cd client && rm -rf .next && rm -rf cache",
-    "dev": "npm run clear && concurrently \"cd client && npm run dev\" \"cd server && npm start\""
+    "dev": "npm run clear && concurrently \"cd client && npm run dev\" \"cd server && npm start\"",
+    "prod": "concurrently \"cd client && npm start\" \"cd server && npm start\""
   },
   "dependencies": {
     "concurrently": "^8.2.2"
