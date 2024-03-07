@@ -9,6 +9,9 @@ export default function ModalCards({
   price,
   title,
   description,
+  additionData,
+  farbe,
+  equipment,
   setStoredItems,
 }) {
   const [isOpenSatz, setIsOpenSatz] = useState(false);
@@ -105,6 +108,7 @@ export default function ModalCards({
     localStorage.setItem("storedItems", JSON.stringify(updatedData));
   };
 
+  console.log(addition);
   return (
     <>
       <div className={styles.modal}>
@@ -149,32 +153,20 @@ export default function ModalCards({
                 </div>
 
                 {isOpenSatz && (
-                  <div className={styles.select_menu}>
-                    <div
-                      className={styles.select_text}
-                      onClick={() => {
-                        setSatz("Синий"), setIsOpenSatz(false);
-                      }}
-                    >
-                      Синий
-                    </div>
-                    <div
-                      className={styles.select_text}
-                      onClick={() => {
-                        setSatz("Зеленый"), setIsOpenSatz(false);
-                      }}
-                    >
-                      Зеленый
-                    </div>
-                    <div
-                      className={styles.select_text}
-                      onClick={() => {
-                        setSatz("Желтый"), setIsOpenSatz(false);
-                      }}
-                    >
-                      Желтый
-                    </div>
-                  </div>
+                  <ul className={styles.select_menu}>
+                    {equipment &&
+                      equipment.map(({ item, price }, id) => (
+                        <li
+                          key={id}
+                          className={styles.select_text}
+                          onClick={() => {
+                            setSatz(item), setIsOpenSatz(false);
+                          }}
+                        >
+                          {item}
+                        </li>
+                      ))}
+                  </ul>
                 )}
                 <div>
                   <label className={styles.description}>Farbe</label>
@@ -192,32 +184,20 @@ export default function ModalCards({
                   </div>
                 </div>
                 {isOpenColor && (
-                  <div className={styles.select_menu}>
-                    <div
-                      className={styles.select_text}
-                      onClick={() => {
-                        setColor("Синий"), setIsOpenColor(false);
-                      }}
-                    >
-                      Синий
-                    </div>
-                    <div
-                      className={styles.select_text}
-                      onClick={() => {
-                        setColor("Зеленый"), setIsOpenColor(false);
-                      }}
-                    >
-                      Зеленый
-                    </div>
-                    <div
-                      className={styles.select_text}
-                      onClick={() => {
-                        setColor("Желтый"), setIsOpenColor(false);
-                      }}
-                    >
-                      Желтый
-                    </div>
-                  </div>
+                  <ul className={styles.select_menu}>
+                    {farbe &&
+                      farbe.map(({ item }, id) => (
+                        <li
+                          key={id}
+                          className={styles.select_text}
+                          onClick={() => {
+                            setColor(item), setIsOpenColor(false);
+                          }}
+                        >
+                          {item}
+                        </li>
+                      ))}
+                  </ul>
                 )}
                 <div>
                   <label className={styles.description}>Zusatz</label>
@@ -235,32 +215,20 @@ export default function ModalCards({
                   </div>
                 </div>
                 {isOpenAddition && (
-                  <div className={styles.select_menu}>
-                    <div
-                      className={styles.select_text}
-                      onClick={() => {
-                        setSelectAddition("Синий"), setIsOpenAddition(false);
-                      }}
-                    >
-                      Синий
-                    </div>
-                    <div
-                      className={styles.select_text}
-                      onClick={() => {
-                        setSelectAddition("Зеленый"), setIsOpenAddition(false);
-                      }}
-                    >
-                      Зеленый
-                    </div>
-                    <div
-                      className={styles.select_text}
-                      onClick={() => {
-                        setSelectAddition("Желтый"), setIsOpenAddition(false);
-                      }}
-                    >
-                      Желтый
-                    </div>
-                  </div>
+                  <ul className={styles.select_menu}>
+                    {additionData &&
+                      additionData.map(({ item, price }, id) => (
+                        <li
+                          key={id}
+                          className={styles.select_text}
+                          onClick={() => {
+                            setSelectAddition(item), setIsOpenAddition(false);
+                          }}
+                        >
+                          {item}
+                        </li>
+                      ))}
+                  </ul>
                 )}
 
                 <div className={styles.position}>

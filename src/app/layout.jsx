@@ -19,7 +19,6 @@ export default async function RootLayout({ children }) {
         <Header />
         <main className={styles.page}>{children}</main>
         <Footer />
-        {/* <script async src="https://pay.google.com/gp/p/js/pay.js"></script> */}
 
         <script
           async={true}
