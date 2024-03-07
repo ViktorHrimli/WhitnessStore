@@ -3,7 +3,7 @@
     "build": "cd client && npm run build",
     "install-client": "cd client && npm i && npm run build",
     "install-server": "cd server && npm i",
-    "initions": "npm i && npm run install-server && npm run install-client",
+    "initions": "npm i && npm run install-server && npm run install-client && npm run prod",
     "clear": "cd client && rm -rf .next && rm -rf cache",
     "dev": "npm run clear && concurrently \"cd client && npm run dev\" \"cd server && npm start\"",
     "prod": "concurrently \"cd client && npm start\" \"cd server && npm start\""
