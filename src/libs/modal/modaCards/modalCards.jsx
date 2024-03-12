@@ -1,11 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./modalCards.module.scss";
 import { CarouselDemo } from "./caruselPhoto/carusel";
 
 export default function ModalCards({
   setIsOpenModal,
-  // CardImg,
   price,
   title,
   gallery,
@@ -30,6 +29,9 @@ export default function ModalCards({
   const [isUnderbustMeasurement, setIsUnderbustMeasurement] = useState("");
   const [isHipCircumference, setIsHipCircumference] = useState("");
   const [isTaillenumfang, setIsTaillenumfang] = useState("");
+  // PRICE
+  const [combinePrice, setCombinePrice] = useState(+price);
+  const [additionsPrice, setAdditionsPrice] = useState(0);
 
   const handleInputChangeChestCircumference = (e) => {
     const inputValue = e.target.value;
@@ -95,7 +97,7 @@ export default function ModalCards({
     const newCardData = {
       CardImg: gallery,
       title: title,
-      price: price,
+      price: combinePrice,
       satz: satz,
       color: color,
       addition: addition,
@@ -110,6 +112,10 @@ export default function ModalCards({
 
     localStorage.setItem("storedItems", JSON.stringify(updatedData));
   };
+
+  useEffect(() => {
+    setCombinePrice((prev) => prev + additionsPrice);
+  }, [additionsPrice]);
 
   return (
     <>
@@ -133,7 +139,7 @@ export default function ModalCards({
           </div>
           <div className={styles.container_text}>
             <h3 className={styles.title}>{title}</h3>
-            <p className={styles.price}>{price}€</p>
+            <p className={styles.price}>{combinePrice}€</p>
 
             <form action="" className={styles.form_container}>
               <div className={styles.form}>
@@ -144,7 +150,7 @@ export default function ModalCards({
                       className={styles.select}
                       required
                       onClick={onClickSatz}
-                      value={satz ? satz : equipment[0]["item"]}
+                      value={satz}
                       readOnly
                       id="satz"
                       type="text"
@@ -163,6 +169,7 @@ export default function ModalCards({
                           className={styles.select_text}
                           onClick={() => {
                             setSatz(item), setIsOpenSatz(false);
+                            setAdditionsPrice(+price);
                           }}
                         >
                           {item}
@@ -225,6 +232,7 @@ export default function ModalCards({
                           className={styles.select_text}
                           onClick={() => {
                             setSelectAddition(item), setIsOpenAddition(false);
+                            setCombinePrice(+price + additionsPrice);
                           }}
                         >
                           {item}

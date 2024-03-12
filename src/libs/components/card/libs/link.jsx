@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { usePerfectState, doFindKey } from "@/shared/shared";
+import { usePerfectState, doFindKey, BASE_URL } from "@/shared/shared";
 
 import styles from "../card.module.scss";
 import ModalCards from "@/libs/modal/modaCards/modalCards";
@@ -12,6 +12,7 @@ export default function List({
   setStoredItems,
   characteristic,
   mainImg,
+  second_img,
   farbe,
   equipment,
   addition,
@@ -73,7 +74,7 @@ export default function List({
           ) : (
             <Image
               src={`${"https://whitness-store.online"}${
-                mainImg["data"]["attributes"]["url"]
+                second_img["data"]["attributes"]["url"]
               }`}
               alt="img"
               width={400}
