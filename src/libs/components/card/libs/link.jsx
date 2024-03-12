@@ -1,17 +1,18 @@
 import Image from "next/image";
-import { useEffect } from "react";
-import { usePerfectState, searchObj, BASE_URL, UPLOADS } from "@/shared/shared";
+import { useEffect, useState } from "react";
+import { usePerfectState, doFindKey, BASE_URL } from "@/shared/shared";
 
 import styles from "../card.module.scss";
 import ModalCards from "@/libs/modal/modaCards/modalCards";
 
 export default function List({
-  CardImg,
   title,
   price,
   description,
   setStoredItems,
+  characteristic,
   mainImg,
+  second_img,
   farbe,
   equipment,
   addition,
@@ -22,6 +23,18 @@ export default function List({
   var [isScroll, setIsScroll] = usePerfectState(
     typeof window !== "undefined" ? window.scrollY : 0
   );
+
+  const [gallerySet, setGallerySet] = useState(() => {
+    var mapData = gallery.data.map((item) => {
+      var url = doFindKey(item);
+      var baseURl = "https://whitness-store.online";
+      return {
+        original: baseURl + url,
+        thumbnail: baseURl + url,
+      };
+    });
+    return mapData;
+  });
 
   useEffect(() => {
     if (isOpenModal) {
@@ -60,7 +73,9 @@ export default function List({
             />
           ) : (
             <Image
-              src={CardImg[0].thumbnail}
+              src={`${"https://whitness-store.online"}${
+                second_img["data"]["attributes"]["url"]
+              }`}
               alt="img"
               width={400}
               height={600}
@@ -82,11 +97,11 @@ export default function List({
         <ModalCards
           setIsOpenModal={setIsOpenModal}
           setStoredItems={setStoredItems}
-          gallery={gallery}
+          gallery={gallerySet}
+          characteristic={characteristic}
           additionData={addition}
           equipment={equipment}
           farbe={farbe}
-          CardImg={CardImg}
           title={title}
           description={description}
           price={price}
