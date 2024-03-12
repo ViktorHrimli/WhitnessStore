@@ -1,5 +1,16 @@
-var searchObj = (obj, target) => {
-  //   if (target in obj) obj[target];
+var doFindKey = (obj) => {
+  var target = "url";
+
+  if (obj.hasOwnProperty(target)) {
+    return obj[target];
+  } else {
+    for (const key in obj) {
+      if (typeof obj[key] === "object") {
+        const result = doFindKey(obj[key]);
+        return result ? result : "NOT FOUND";
+      }
+    }
+  }
 };
 
-export { searchObj };
+export { doFindKey };

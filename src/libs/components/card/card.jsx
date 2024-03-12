@@ -5,7 +5,6 @@ import { usePerfectState } from "@/shared/hooks/useStateCustomHook";
 import styles from "./card.module.scss";
 import List from "./libs/link";
 import Basket from "../basket/basket";
-import { test } from "@/shared/helpers/findFieldOnObj";
 
 const CardImg = [
   {
@@ -62,7 +61,6 @@ export default function Card({ data }) {
           <List
             key={id}
             setStoredItems={setStoredItems}
-            CardImg={CardImg}
             {...item["attributes"]}
           />
         ))}

@@ -5,10 +5,12 @@ import { CarouselDemo } from "./caruselPhoto/carusel";
 
 export default function ModalCards({
   setIsOpenModal,
-  CardImg,
+  // CardImg,
   price,
   title,
+  gallery,
   description,
+  characteristic,
   additionData,
   farbe,
   equipment,
@@ -91,7 +93,7 @@ export default function ModalCards({
 
     const existingData = JSON.parse(localStorage.getItem("storedItems")) || [];
     const newCardData = {
-      CardImg: CardImg,
+      CardImg: gallery,
       title: title,
       price: price,
       satz: satz,
@@ -127,7 +129,7 @@ export default function ModalCards({
         </div>
         <div className={styles.container}>
           <div className={styles.container_img}>
-            <CarouselDemo CardImg={CardImg} />
+            <CarouselDemo CardImg={gallery} />
           </div>
           <div className={styles.container_text}>
             <h3 className={styles.title}>{title}</h3>
@@ -233,7 +235,7 @@ export default function ModalCards({
 
                 <div className={styles.position}>
                   <p className={styles.description}>{description}</p>
-                  <p className={styles.description}>{description}</p>
+                  <p className={styles.description}>{characteristic}</p>
                 </div>
               </div>
               <div className={styles.form}>
@@ -292,7 +294,7 @@ export default function ModalCards({
             </form>
             <div className={styles.position_mob}>
               <p className={styles.description}>{description}</p>
-              <p className={styles.description}>{description}</p>
+              <p className={styles.description}>{characteristic}</p>
             </div>
           </div>
         </div>
