@@ -16,6 +16,7 @@ export default function List({
   farbe,
   equipment,
   addition,
+  categories,
   gallery,
 }) {
   var [isHover, setIsHover] = usePerfectState(false);
@@ -23,6 +24,8 @@ export default function List({
   var [isScroll, setIsScroll] = usePerfectState(
     typeof window !== "undefined" ? window.scrollY : 0
   );
+
+  console.log(categories);
 
   const [gallerySet, setGallerySet] = useState(() => {
     var mapData = gallery.data.map((item) => {
