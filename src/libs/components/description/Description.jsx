@@ -1,7 +1,14 @@
-import style from "./Description.module.scss"
-import {services} from "@/shared/list"
+"use client";
+
+import { useContext, useState } from "react";
+import { DataContext } from "@/libs/components/wrapper/wraper_context";
+
+import style from "./Description.module.scss";
+import { services } from "@/shared/list";
 
 export default function Description() {
+  var { setisData } = useContext(DataContext);
+
   return (
     <>
       <section className={style.section}>
@@ -10,15 +17,30 @@ export default function Description() {
             <h2 className={style.title}>Handgemachte Unterwäsche</h2>
             <div className={style.line}></div>
             <p className={style.text}>
-              <span className={style.text_bold}>Lace Culture</span>
-              - Damenunterwäsche mit exquisitem Geschmack.
+              <span className={style.text_bold}>Lace Culture</span>-
+              Damenunterwäsche mit exquisitem Geschmack.
             </p>
-            <p className={style.text_description}>Wir kreieren Unterwäsche seit 2014, und bereits Tausende von Kundinnen in der Ukraine und weltweit haben den Stil und die Qualität von Lace Culture geschätzt. Jetzt kannst auch du das tun</p>
+            <p className={style.text_description}>
+              Wir kreieren Unterwäsche seit 2014, und bereits Tausende von
+              Kundinnen in der Ukraine und weltweit haben den Stil und die
+              Qualität von Lace Culture geschätzt. Jetzt kannst auch du das tun
+            </p>
             <ul className={style.container_btn}>
               {services.map((item, id) => (
-                <li key={id} className={style.btn}>{item.title}</li>
+                <li key={id} className={style.btn}>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setisData((prev) =>
+                        prev === item.title ? "" : item.title
+                      )
+                    }
+                  >
+                    {item.title}
+                  </button>
+                </li>
               ))}
-            </ul>    
+            </ul>
           </div>
         </div>
       </section>

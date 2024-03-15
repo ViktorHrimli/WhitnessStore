@@ -5,6 +5,7 @@ import Hero from "@/libs/components/hero/Hero";
 import Price from "@/libs/components/price/price";
 import Search from "@/libs/components/search/search";
 import TextHome from "@/libs/pages/components/text-home/textHome";
+import Wrapper from "@/libs/components/wrapper/Wrapper";
 
 import { getStaticFetch } from "@/shared/shared";
 
@@ -14,9 +15,11 @@ var Home = async () => {
   return (
     <>
       <Hero />
-      <Description />
-      <Search />
-      <Price data={data} />
+      <Wrapper>
+        <Description />
+        <Search />
+        <Price data={data} />
+      </Wrapper>
       <About />
       <Afford />
       <TextHome />

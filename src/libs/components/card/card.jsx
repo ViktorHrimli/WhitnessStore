@@ -1,52 +1,16 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { usePerfectState } from "@/shared/hooks/useStateCustomHook";
+import { DataContext } from "@/libs/components/wrapper/wraper_context";
 
 import styles from "./card.module.scss";
 import List from "./libs/link";
 import Basket from "../basket/basket";
 
-const CardImg = [
-  {
-    original:
-      "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499428/qwerty/IMG_4479_xxidhb.jpg",
-    thumbnail:
-      "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499428/qwerty/IMG_4479_xxidhb.jpg",
-  },
-  {
-    original:
-      "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499428/qwerty/IMG_4656_yffteq.jpg",
-    thumbnail:
-      "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499428/qwerty/IMG_4656_yffteq.jpg",
-  },
-  {
-    original:
-      "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499436/qwerty/photo_y0kpfh.jpg",
-    thumbnail:
-      "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499436/qwerty/photo_y0kpfh.jpg",
-  },
-  {
-    original:
-      "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499420/qwerty/87012130_u3bazj.jpg",
-    thumbnail:
-      "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499420/qwerty/87012130_u3bazj.jpg",
-  },
-  {
-    original:
-      "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499419/qwerty/43840393_bzew4q.jpg",
-    thumbnail:
-      "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499419/qwerty/43840393_bzew4q.jpg",
-  },
-  {
-    original:
-      "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499420/qwerty/36877471_dpsgxn.jpg",
-    thumbnail:
-      "https://res.cloudinary.com/de0iwhqf4/image/upload/c_fill,ar_1:1/v1702499420/qwerty/36877471_dpsgxn.jpg",
-  },
-];
-
 export default function Card({ data }) {
   var [storedItems, setStoredItems] = usePerfectState([]);
+  // CONTEXT BLYAT
+  var { isData } = useContext(DataContext);
 
   useEffect(() => {
     var localeData = JSON.parse(localStorage.getItem("storedItems"));
@@ -57,13 +21,17 @@ export default function Card({ data }) {
     <>
       <ul className={styles.container_cards}>
         <Basket setStoredItems={setStoredItems} storedItems={storedItems} />
-        {data.map((item, id) => (
-          <List
-            key={id}
-            setStoredItems={setStoredItems}
-            {...item["attributes"]}
-          />
-        ))}
+        {data.map((item, id) => {
+          if (item["attributes"].categories.includes(isData)) {
+            return (
+              <List
+                key={id}
+                setStoredItems={setStoredItems}
+                {...item["attributes"]}
+              />
+            );
+          }
+        })}
       </ul>
       <button
         className={styles.btn}
