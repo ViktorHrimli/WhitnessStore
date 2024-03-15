@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export var DataContext = createContext(null);
+export var DataContext = createContext("");
