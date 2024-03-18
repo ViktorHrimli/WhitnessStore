@@ -66,7 +66,7 @@ function PayPal({ amount, doOnSubmit, totalPrice }) {
                   cart: [
                     {
                       id: "23",
-                      amount: price,
+                      amount: Math.floor(price),
                     },
                   ],
                 }),
