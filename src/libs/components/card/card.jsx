@@ -22,7 +22,17 @@ export default function Card({ data }) {
       <ul className={styles.container_cards}>
         <Basket setStoredItems={setStoredItems} storedItems={storedItems} />
         {data.map((item, id) => {
-          if (item["attributes"].categories.includes(isData)) {
+          if (isData) {
+            return (
+              item["attributes"].categories.includes(isData) && (
+                <List
+                  key={id}
+                  setStoredItems={setStoredItems}
+                  {...item["attributes"]}
+                />
+              )
+            );
+          } else {
             return (
               <List
                 key={id}
