@@ -1,6 +1,7 @@
 "use client";
+
 import { useState, useRef } from "react";
-import styles from "./PaymentForm.module.scss";
+import styles from "./PaymentForm.module.css";
 
 import {
   PayPalHostedFieldsProvider,
@@ -16,12 +17,13 @@ async function createOrderCallback() {
       headers: {
         "Content-Type": "application/json",
       },
-
+      // use the "body" param to optionally pass additional order information
+      // like product ids and quantities
       body: JSON.stringify({
         cart: [
           {
-            id: 23,
-            quantity: 1,
+            id: "12",
+            quantity: "5",
           },
         ],
       }),
@@ -136,16 +138,16 @@ const SubmitPayment = ({ onHandleMessage }) => {
 };
 
 const Message = ({ content }) => {
-  return <p>{content}</p>;
+  return <h1 color="red">{content}</h1>;
 };
 
 export const PaymentForm = () => {
   const [message, setMessage] = useState("");
   return (
-    <div className={styles.form} id="container-paypal">
+    <div className={styles.form}>
       <PayPalButtons
         style={{
-          shape: "rect",
+          shape: "pill",
           layout: "vertical",
         }}
         styles={{ marginTop: "4px", marginBottom: "4px" }}
@@ -153,56 +155,6 @@ export const PaymentForm = () => {
         onApprove={async (data) => setMessage(await onApproveCallback(data))}
       />
 
-      <PayPalHostedFieldsProvider createOrder={createOrderCallback}>
-        <div style={{ marginTop: "4px", marginBottom: "4px" }}>
-          <PayPalHostedField
-            id="card-number"
-            hostedFieldType="number"
-            options={{
-              selector: "#card-number",
-              formatInput: true,
-              placeholder: "Card Number",
-            }}
-            className={styles.input}
-          />
-          <div className={styles.container}>
-            <PayPalHostedField
-              id="expiration-date"
-              hostedFieldType="expirationDate"
-              options={{
-                selector: "#expiration-date",
-                placeholder: "Expiration Date",
-              }}
-              className={styles.input}
-            />
-            <PayPalHostedField
-              id="cvv"
-              hostedFieldType="cvv"
-              options={{
-                selector: "#cvv",
-                placeholder: "CVV",
-              }}
-              className={styles.input}
-            />
-          </div>
-          <div className={styles.container}>
-            <input
-              id="card-holder"
-              type="text"
-              placeholder="Name on Card"
-              className={styles.input}
-            />
-
-            <input
-              id="card-billing-address-country"
-              type="text"
-              placeholder="Country Code"
-              className={styles.input}
-            />
-          </div>
-        </div>
-        <SubmitPayment onHandleMessage={setMessage} />
-      </PayPalHostedFieldsProvider>
       <Message content={message} />
     </div>
   );

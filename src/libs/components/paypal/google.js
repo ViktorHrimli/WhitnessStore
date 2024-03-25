@@ -1,13 +1,15 @@
-import {} from "@paypal/paypal-js";
+/*
+ * Define the version of the Google Pay API referenced when creating your
+ * configuration
+ */
 const baseRequest = {
   apiVersion: 2,
   apiVersionMinor: 0,
 };
-
-let allowedPaymentMethods = null;
-let merchantInfo = null;
-let paymentsClient = null;
-
+let paymentsClient = null,
+  allowedPaymentMethods = null,
+  merchantInfo = null;
+/* Configure your site's support for payment methods supported by the Google Pay */
 function getGoogleIsReadyToPayRequest(allowedPaymentMethods) {
   return Object.assign({}, baseRequest, {
     allowedPaymentMethods: allowedPaymentMethods,
@@ -16,9 +18,24 @@ function getGoogleIsReadyToPayRequest(allowedPaymentMethods) {
 /* Fetch Default Config from PayPal via PayPal SDK */
 async function getGooglePayConfig() {
   if (allowedPaymentMethods == null || merchantInfo == null) {
-    const googlePayConfig = await paypal.Googlepay().config();
-    allowedPaymentMethods = googlePayConfig.allowedPaymentMethods;
-    merchantInfo = googlePayConfig.merchantInfo;
+    // const googlePayConfig = await window.paypal.Googlepay().config();
+    // // var googlePayConfig = await fetch(
+    // //   "https://www.sandbox.paypal.com/graphql?GetGooglePayConfig"
+    // // );
+
+    allowedPaymentMethods = [
+      {
+        type: "CARD",
+        parameters: {
+          allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+          allowedCardNetworks: ["MASTERCARD", "VISA"],
+        },
+      },
+    ];
+    merchantInfo = {
+      merchantName: "Example Merchant",
+      merchantId: "12345678901234567890",
+    };
   }
   return {
     allowedPaymentMethods,
@@ -76,7 +93,12 @@ function addGooglePayButton() {
   const button = paymentsClient.createButton({
     onClick: onGooglePaymentButtonClicked,
   });
-  document.getElementById("container-paypal").appendChild(button);
+
+  var conteiner = document.getElementById("container-btn-google");
+
+  if (!conteiner.hasChildNodes()) {
+    document.getElementById("container-btn-google").appendChild(button);
+  }
 }
 function getGoogleTransactionInfo() {
   return {
@@ -120,20 +142,20 @@ async function processPayment(paymentData) {
       ],
     };
     /* Create Order */
-    const { id } = await fetch(`/orders`, {
+    const { id } = await fetch(`/google/oreders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(order),
     }).then((res) => res.json());
-    const { status } = await paypal.Googlepay().confirmOrder({
+
+    const { status } = await window.paypal.Googlepay().confirmOrder({
       orderId: id,
       paymentMethodData: paymentData.paymentMethodData,
     });
     if (status === "APPROVED") {
-      /* Capture the Order */
-      const captureResponse = await fetch(`/orders/${id}/capture`, {
+      const captureResponse = await fetch(`/google/${id}/capture`, {
         method: "POST",
       }).then((res) => res.json());
       return { transactionState: "SUCCESS" };

@@ -17,7 +17,7 @@ function PayPal({ amount, doOnSubmit, totalPrice }) {
     "enable-funding": "paylater,venmo",
     "disable-funding": "",
     "data-sdk-integration-source": "integrationbuilder_ac",
-    components: "buttons",
+    components: "buttons, applepay, funding-eligibility, hosted-fields",
     currency: "EUR",
   };
 
