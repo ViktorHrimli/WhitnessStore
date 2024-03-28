@@ -1,7 +1,3 @@
-/*
- * Define the version of the Google Pay API referenced when creating your
- * configuration
- */
 const baseRequest = {
   apiVersion: 2,
   apiVersionMinor: 0,
@@ -15,10 +11,9 @@ function getGoogleIsReadyToPayRequest(allowedPaymentMethods) {
     allowedPaymentMethods: allowedPaymentMethods,
   });
 }
-/* Fetch Default Config from PayPal via PayPal SDK */
 async function getGooglePayConfig() {
   if (allowedPaymentMethods == null || merchantInfo == null) {
-    // const googlePayConfig = await window.paypal.Googlepay().config();
+    // const googlePayConfig = await paypal.Googlepay().config();
     // // var googlePayConfig = await fetch(
     // //   "https://www.sandbox.paypal.com/graphql?GetGooglePayConfig"
     // // );
@@ -29,6 +24,13 @@ async function getGooglePayConfig() {
         parameters: {
           allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
           allowedCardNetworks: ["MASTERCARD", "VISA"],
+        },
+        tokenizationSpecification: {
+          type: "PAYMENT_GATEWAY",
+          parameters: {
+            gateway: "example",
+            gatewayMerchantId: "exampleGatewayMerchantId",
+          },
         },
       },
     ];
@@ -114,8 +116,8 @@ function getGoogleTransactionInfo() {
         price: "10.00",
       },
     ],
-    countryCode: "US",
-    currencyCode: "USD",
+    countryCode: "GE",
+    currencyCode: "EUR",
     totalPriceStatus: "FINAL",
     totalPrice: "110.00",
     totalPriceLabel: "Total",
@@ -142,7 +144,7 @@ async function processPayment(paymentData) {
       ],
     };
     /* Create Order */
-    const { id } = await fetch(`/google/oreders`, {
+    const { id } = await fetch(`http://localhost:8888/api/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -150,14 +152,17 @@ async function processPayment(paymentData) {
       body: JSON.stringify(order),
     }).then((res) => res.json());
 
-    const { status } = await window.paypal.Googlepay().confirmOrder({
+    const { status } = await paypal.Googlepay().confirmOrder({
       orderId: id,
       paymentMethodData: paymentData.paymentMethodData,
     });
     if (status === "APPROVED") {
-      const captureResponse = await fetch(`/google/${id}/capture`, {
-        method: "POST",
-      }).then((res) => res.json());
+      const captureResponse = await fetch(
+        `http://localhost:8888/order/${id}/capture`,
+        {
+          method: "POST",
+        }
+      ).then((res) => res.json());
       return { transactionState: "SUCCESS" };
     } else {
       return { transactionState: "ERROR" };

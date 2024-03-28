@@ -3,7 +3,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { PaymentForm } from "./FormPayPal";
 import { useState, useEffect } from "react";
 
-const App = () => {
+const App = ({ amount, totalPrice, doOnSubmit }) => {
   const [clientToken, setClientToken] = useState(null);
 
   const initialOptions = {
@@ -33,7 +33,11 @@ const App = () => {
       }}
     >
       <PayPalScriptProvider options={initialOptions}>
-        <PaymentForm />
+        <PaymentForm
+          amount={amount}
+          totalPrice={totalPrice}
+          doOnSubmit={doOnSubmit}
+        />
       </PayPalScriptProvider>
     </div>
   );

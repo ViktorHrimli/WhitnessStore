@@ -3,12 +3,7 @@
 import { useState, useRef } from "react";
 import styles from "./PaymentForm.module.css";
 
-import {
-  PayPalHostedFieldsProvider,
-  PayPalHostedField,
-  PayPalButtons,
-  usePayPalHostedFields,
-} from "@paypal/react-paypal-js";
+import { PayPalButtons } from "@paypal/react-paypal-js";
 
 async function createOrderCallback() {
   try {
@@ -17,8 +12,6 @@ async function createOrderCallback() {
       headers: {
         "Content-Type": "application/json",
       },
-      // use the "body" param to optionally pass additional order information
-      // like product ids and quantities
       body: JSON.stringify({
         cart: [
           {
@@ -60,27 +53,19 @@ async function onApproveCallback(data, actions) {
     );
 
     const orderData = await response.json();
-    // Three cases to handle:
-    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-    //   (2) Other non-recoverable errors -> Show a failure message
-    //   (3) Successful transaction -> Show confirmation or thank you message
 
     const transaction =
       orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
       orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
     const errorDetail = orderData?.details?.[0];
 
-    // this actions.restart() behavior only applies to the Buttons component
     if (errorDetail?.issue === "INSTRUMENT_DECLINED" && !data.card && actions) {
-      // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-      // recoverable state, per https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
       return actions.restart();
     } else if (
       errorDetail ||
       !transaction ||
       transaction.status === "DECLINED"
     ) {
-      // (2) Other non-recoverable errors -> Show a failure message
       let errorMessage;
       if (transaction) {
         errorMessage = `Transaction ${transaction.status}: ${transaction.id}`;
@@ -92,8 +77,6 @@ async function onApproveCallback(data, actions) {
 
       throw new Error(errorMessage);
     } else {
-      // (3) Successful transaction -> Show confirmation or thank you message
-      // Or go to another URL:  actions.redirect('thank_you.html');
       console.log(
         "Capture result",
         orderData,
@@ -106,42 +89,11 @@ async function onApproveCallback(data, actions) {
   }
 }
 
-const SubmitPayment = ({ onHandleMessage }) => {
-  // Here declare the variable containing the hostedField instance
-  const { cardFields } = usePayPalHostedFields();
-  const cardHolderName = useRef(null);
-
-  const submitHandler = () => {
-    if (typeof cardFields.submit !== "function") return; // validate that \`submit()\` exists before using it
-    //if (errorMsg) showErrorMsg(false);
-    cardFields
-      .submit({
-        // The full name as shown in the card and billing addresss
-        // These fields are optional for Sandbox but mandatory for production integration
-        cardholderName: cardHolderName?.current?.value,
-      })
-      .then(async (data) => onHandleMessage(await onApproveCallback(data)))
-      .catch((orderData) => {
-        onHandleMessage(
-          `Sorry, your transaction could not be processed...${JSON.stringify(
-            orderData
-          )}`
-        );
-      });
-  };
-
-  return (
-    <button onClick={submitHandler} className="btn btn-primary">
-      Pay
-    </button>
-  );
-};
-
 const Message = ({ content }) => {
   return <h1 color="red">{content}</h1>;
 };
 
-export const PaymentForm = () => {
+export const PaymentForm = ({ amount, totalPrice, doOnSubmit }) => {
   const [message, setMessage] = useState("");
   return (
     <div className={styles.form}>
@@ -151,7 +103,7 @@ export const PaymentForm = () => {
           layout: "vertical",
         }}
         styles={{ marginTop: "4px", marginBottom: "4px" }}
-        createOrder={createOrderCallback}
+        createOrder={() => createOrderCallback()}
         onApprove={async (data) => setMessage(await onApproveCallback(data))}
       />
 

@@ -30,7 +30,6 @@ export default function Form({ totalCardPrice }) {
   const [totalPrice, setTotalCardPrice] = useState(
     totalCardPrice + deliveryPost
   );
-  onGooglePayLoaded().catch(console.log);
 
   useEffect(() => {
     setTotalCardPrice(totalCardPrice + deliveryPost);
@@ -70,6 +69,9 @@ export default function Form({ totalCardPrice }) {
     localStorage.removeItem("storedItems");
   };
 
+  useEffect(() => {
+    onGooglePayLoaded().catch(console.log);
+  }, []);
   return (
     <form className={stules.form}>
       <label className={stules.title}>Ihr Name</label>
@@ -164,7 +166,11 @@ export default function Form({ totalCardPrice }) {
 
       <div id="container-btn-google"></div>
 
-      <App />
+      <App
+        amount={deliveryPost}
+        totalPrice={totalPrice}
+        doOnSubmit={doOnSubmit}
+      />
 
       {/* <PayPal
         amount={deliveryPost}
