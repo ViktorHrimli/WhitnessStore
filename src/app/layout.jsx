@@ -25,7 +25,7 @@ export default async function RootLayout({ children }) {
         {/* <script
           src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&components=googlepay`}
         ></script> */}
-        <script src="https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js"></script>
+        {/* <script  src="https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js"></script> */}
       </Head>
       <body className={montserrat.className}>
         <Header />
