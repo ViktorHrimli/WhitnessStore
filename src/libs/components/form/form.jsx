@@ -1,11 +1,17 @@
 "use client";
 import { certificateApI } from "@/shared/shared";
+import GooglePayButton from "@google-pay/button-react";
+import PayPal from "@/libs/components/paypal/paypal";
+import onGooglePayLoaded from "@/libs/components/paypal/google";
+// import * as applePuY from "@/libs/components/paypal/applePay";
+
+import App from "../paypal/app";
 import IMask from "react-input-mask";
 
 import stules from "./form.module.scss";
-import PayPal from "@/libs/components/paypal/paypal";
 import CountyCode from "./country_code/CountyCode";
 import { useState, useEffect } from "react";
+import { PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function Form({ totalCardPrice }) {
   var deliveryPost = 3.7;
@@ -29,25 +35,7 @@ export default function Form({ totalCardPrice }) {
     setTotalCardPrice(totalCardPrice + deliveryPost);
   }, [totalCardPrice]);
 
-  // var post = () => {
-  //   setTotalCardPrice(totalCardPrice + deliveryPost - theAmountCert);
-  // };
-  // var home = () => {
-  //   setTotalCardPrice(totalCardPrice + deliveryHome - theAmountCert);
-  // };
-
-  // const handleDeliveryChange = (event) => {
-  //   if (event.target.id === "post") {
-  //     setTotalCardPrice(totalCardPrice + deliveryPost - theAmountCert);
-  //     setDelivery(deliveryPost);
-  //   } else if (event.target.id === "home") {
-  //     setTotalCardPrice(totalCardPrice + deliveryHome - theAmountCert);
-  //     setDelivery(deliveryHome);
-  //   }
-  // };
-
   useEffect(() => {
-    console.log(useId);
     if (useId) {
       certificateApI.useCertificate(useId);
     }
@@ -81,6 +69,9 @@ export default function Form({ totalCardPrice }) {
     localStorage.removeItem("storedItems");
   };
 
+  useEffect(() => {
+    onGooglePayLoaded().catch(console.log);
+  }, []);
   return (
     <form className={stules.form}>
       <label className={stules.title}>Ihr Name</label>
@@ -172,83 +163,59 @@ export default function Form({ totalCardPrice }) {
         Gesamtsumme:
         <span>{(totalPrice + deliveryPost).toFixed(2)}</span> €
       </p>
-      <button onSubmit={(event) => event.preventDefault()} type="submit">
-        <PayPal
-          amount={deliveryPost}
-          totalPrice={totalPrice}
-          doOnSubmit={doOnSubmit}
-        />
-      </button>
+
+      <div id="container-btn-google"></div>
+
+      <App
+        amount={deliveryPost}
+        totalPrice={totalPrice}
+        doOnSubmit={doOnSubmit}
+      />
+
+      {/* <PayPal
+        amount={deliveryPost}
+        totalPrice={totalPrice}
+        doOnSubmit={doOnSubmit}
+      /> */}
+
+      <div id="applepay-container"></div>
+      {/* <GooglePayButton
+        environment="TEST"
+        paymentRequest={{
+          apiVersion: 2,
+          apiVersionMinor: 0,
+          allowedPaymentMethods: [
+            {
+              type: "CARD",
+              parameters: {
+                allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+                allowedCardNetworks: ["MASTERCARD", "VISA"],
+              },
+              tokenizationSpecification: {
+                type: "PAYMENT_GATEWAY",
+                parameters: {
+                  gateway: "example",
+                  gatewayMerchantId: "exampleGatewayMerchantId",
+                },
+              },
+            },
+          ],
+          merchantInfo: {
+            merchantId: "12345678901234567890",
+            merchantName: "Demo Merchant",
+          },
+          transactionInfo: {
+            totalPriceStatus: "FINAL",
+            totalPriceLabel: "Total",
+            totalPrice: "100.00",
+            currencyCode: "USD",
+            countryCode: "US",
+          },
+        }}
+        onLoadPaymentData={(paymentRequest) => {
+          console.log("load payment data", paymentRequest);
+        }}
+      /> */}
     </form>
   );
-}
-
-{
-  /* radio btn DELIVERY */
-}
-{
-  /* <p className={stules.title}>Lieferung</p>
-      <div className={stules.flex}>
-        <div className={stules.border}></div>
-        <input
-          type="radio"
-          id="post"
-          className={stules.radio}
-          name="delivery"
-          onClick={handleDeliveryChange}
-        />
-        <label onClick={post} htmlFor="post" className={stules.text_radio}>
-          Zur Post
-        </label>
-      </div>
-
-      <div className={stules.flex} style={{ marginBottom: "10px" }}>
-        <div className={stules.border}></div>
-        <input
-          type="radio"
-          id="home"
-          className={stules.radio}
-          name="delivery"
-          onClick={handleDeliveryChange}
-        />
-
-        <label onClick={home} htmlFor="home" className={stules.text_radio}>
-          Auf Haus
-        </label>
-      </div> */
-}
-
-{
-  /* radio btn PAY */
-}
-{
-  /* <p className={stules.title}>Zahlungsmethode</p>
-        <div className={stules.flex}>
-          <div className={stules.border}></div>
-          <input
-            type="radio"
-            id="paypal"
-            className={stules.radio}
-            name="pay"
-            onClick={() => setIsPayPal(true)}
-          />
-
-          <label htmlFor="paypal" className={stules.text_radio}>
-            Bezahlung der Bestellung über PayPal.
-          </label>
-        </div>
-        <div className={stules.flex} style={{ marginBottom: "30px" }}>
-          <div className={stules.border}></div>
-
-          <input
-            type="radio"
-            id="iban"
-            className={stules.radio}
-            name="pay"
-            onClick={() => setIsPayPal(false)}
-          />
-          <label htmlFor="iban" className={stules.text_radio}>
-            Überweisung auf IBAN
-          </label>
-        </div> */
 }

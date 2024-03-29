@@ -1,24 +1,43 @@
-import {} from "@paypal/paypal-js";
 const baseRequest = {
   apiVersion: 2,
   apiVersionMinor: 0,
 };
-
-let allowedPaymentMethods = null;
-let merchantInfo = null;
-let paymentsClient = null;
-
+let paymentsClient = null,
+  allowedPaymentMethods = null,
+  merchantInfo = null;
+/* Configure your site's support for payment methods supported by the Google Pay */
 function getGoogleIsReadyToPayRequest(allowedPaymentMethods) {
   return Object.assign({}, baseRequest, {
     allowedPaymentMethods: allowedPaymentMethods,
   });
 }
-/* Fetch Default Config from PayPal via PayPal SDK */
 async function getGooglePayConfig() {
   if (allowedPaymentMethods == null || merchantInfo == null) {
-    const googlePayConfig = await paypal.Googlepay().config();
-    allowedPaymentMethods = googlePayConfig.allowedPaymentMethods;
-    merchantInfo = googlePayConfig.merchantInfo;
+    // const googlePayConfig = await paypal.Googlepay().config();
+    // // var googlePayConfig = await fetch(
+    // //   "https://www.sandbox.paypal.com/graphql?GetGooglePayConfig"
+    // // );
+
+    allowedPaymentMethods = [
+      {
+        type: "CARD",
+        parameters: {
+          allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+          allowedCardNetworks: ["MASTERCARD", "VISA"],
+        },
+        tokenizationSpecification: {
+          type: "PAYMENT_GATEWAY",
+          parameters: {
+            gateway: "example",
+            gatewayMerchantId: "exampleGatewayMerchantId",
+          },
+        },
+      },
+    ];
+    merchantInfo = {
+      merchantName: "Example Merchant",
+      merchantId: "12345678901234567890",
+    };
   }
   return {
     allowedPaymentMethods,
@@ -76,7 +95,12 @@ function addGooglePayButton() {
   const button = paymentsClient.createButton({
     onClick: onGooglePaymentButtonClicked,
   });
-  document.getElementById("container-paypal").appendChild(button);
+
+  var conteiner = document.getElementById("container-btn-google");
+
+  if (!conteiner.hasChildNodes()) {
+    document.getElementById("container-btn-google").appendChild(button);
+  }
 }
 function getGoogleTransactionInfo() {
   return {
@@ -92,8 +116,8 @@ function getGoogleTransactionInfo() {
         price: "10.00",
       },
     ],
-    countryCode: "US",
-    currencyCode: "USD",
+    countryCode: "GE",
+    currencyCode: "EUR",
     totalPriceStatus: "FINAL",
     totalPrice: "110.00",
     totalPriceLabel: "Total",
@@ -120,22 +144,28 @@ async function processPayment(paymentData) {
       ],
     };
     /* Create Order */
-    const { id } = await fetch(`/orders`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(order),
-    }).then((res) => res.json());
+    const { id } = await fetch(
+      `https://www.space-test-space.space/api/orders`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(order),
+      }
+    ).then((res) => res.json());
+
     const { status } = await paypal.Googlepay().confirmOrder({
       orderId: id,
       paymentMethodData: paymentData.paymentMethodData,
     });
     if (status === "APPROVED") {
-      /* Capture the Order */
-      const captureResponse = await fetch(`/orders/${id}/capture`, {
-        method: "POST",
-      }).then((res) => res.json());
+      const captureResponse = await fetch(
+        `https://www.space-test-space.space/api/orders/${id}/capture`,
+        {
+          method: "POST",
+        }
+      ).then((res) => res.json());
       return { transactionState: "SUCCESS" };
     } else {
       return { transactionState: "ERROR" };
