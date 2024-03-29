@@ -5,22 +5,25 @@ import styles from "./PaymentForm.module.css";
 
 import { PayPalButtons } from "@paypal/react-paypal-js";
 
-async function createOrderCallback() {
+async function createOrderCallback(totalPrice) {
   try {
-    const response = await fetch("http://localhost:8888/api/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        cart: [
-          {
-            id: "12",
-            quantity: "5",
-          },
-        ],
-      }),
-    });
+    const response = await fetch(
+      "https://www.space-test-space.space/api/orders",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cart: [
+            {
+              id: "12",
+              price: totalPrice,
+            },
+          ],
+        }),
+      }
+    );
 
     const orderData = await response.json();
 
@@ -43,7 +46,7 @@ async function createOrderCallback() {
 async function onApproveCallback(data, actions) {
   try {
     const response = await fetch(
-      `http://localhost:8888/api/orders/${data.orderID}/capture`,
+      `https://www.space-test-space.space/api/orders/${data.orderID}/capture`,
       {
         method: "POST",
         headers: {
@@ -103,7 +106,9 @@ export const PaymentForm = ({ amount, totalPrice, doOnSubmit }) => {
           layout: "vertical",
         }}
         styles={{ marginTop: "4px", marginBottom: "4px" }}
-        createOrder={() => createOrderCallback()}
+        createOrder={async () =>
+          await createOrderCallback(totalPrice, doOnSubmit)
+        }
         onApprove={async (data) => setMessage(await onApproveCallback(data))}
       />
 

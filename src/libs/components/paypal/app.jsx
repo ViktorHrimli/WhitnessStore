@@ -18,7 +18,7 @@ const App = ({ amount, totalPrice, doOnSubmit }) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8888/api/token", {
+    fetch("https://www.space-test-space.space/api/token", {
       method: "POST",
     })
       .then((res) => res.json())
