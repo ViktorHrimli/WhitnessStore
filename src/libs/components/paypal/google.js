@@ -144,24 +144,34 @@ async function processPayment(paymentData) {
       ],
     };
     /* Create Order */
-    const { id } = await fetch(
-      `https://www.space-test-space.space/api/orders`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(order),
-      }
-    ).then((res) => res.json());
+    const resultOrder = await fetch(`http://localhost:8888/api/googleorders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order),
+    });
+
+    var { id } = await resultOrder.json();
 
     const { status } = await paypal.Googlepay().confirmOrder({
       orderId: id,
       paymentMethodData: paymentData.paymentMethodData,
     });
+
+    // var result = await fetch("http://localhost:8888/api/confirmOrder", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     orderId: id,
+    //     paymentMethodData: paymentData.paymentMethodData,
+    //   }),
+    // });
+
+    // var { status } = await result.json();
+
     if (status === "APPROVED") {
       const captureResponse = await fetch(
-        `https://www.space-test-space.space/api/orders/${id}/capture`,
+        `http://localhost:8888/api/googleorders/${id}/capture`,
         {
           method: "POST",
         }

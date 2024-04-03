@@ -25,8 +25,6 @@ export default function List({
     typeof window !== "undefined" ? window.scrollY : 0
   );
 
-  console.log(categories);
-
   const [gallerySet, setGallerySet] = useState(() => {
     var mapData = gallery.data.map((item) => {
       var url = doFindKey(item);
