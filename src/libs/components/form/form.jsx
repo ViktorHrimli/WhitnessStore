@@ -1,9 +1,5 @@
 "use client";
 import { certificateApI } from "@/shared/shared";
-import GooglePayButton from "@google-pay/button-react";
-import PayPal from "@/libs/components/paypal/paypal";
-import onGooglePayLoaded from "@/libs/components/paypal/google";
-// import * as applePuY from "@/libs/components/paypal/applePay";
 
 import App from "../paypal/app";
 import IMask from "react-input-mask";
@@ -11,7 +7,6 @@ import IMask from "react-input-mask";
 import stules from "./form.module.scss";
 import CountyCode from "./country_code/CountyCode";
 import { useState, useEffect } from "react";
-import { PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function Form({ totalCardPrice }) {
   var deliveryPost = 3.7;
@@ -69,9 +64,6 @@ export default function Form({ totalCardPrice }) {
     localStorage.removeItem("storedItems");
   };
 
-  useEffect(() => {
-    onGooglePayLoaded().catch(console.log);
-  }, []);
   return (
     <form className={stules.form}>
       <label className={stules.title}>Ihr Name</label>
@@ -164,58 +156,13 @@ export default function Form({ totalCardPrice }) {
         <span>{(totalPrice + deliveryPost).toFixed(2)}</span> €
       </p>
 
-      <div id="container-btn-google"></div>
-
       <App
         amount={deliveryPost}
         totalPrice={totalPrice}
         doOnSubmit={doOnSubmit}
       />
 
-      {/* <PayPal
-        amount={deliveryPost}
-        totalPrice={totalPrice}
-        doOnSubmit={doOnSubmit}
-      /> */}
-
-      <div id="applepay-container"></div>
-      {/* <GooglePayButton
-        environment="TEST"
-        paymentRequest={{
-          apiVersion: 2,
-          apiVersionMinor: 0,
-          allowedPaymentMethods: [
-            {
-              type: "CARD",
-              parameters: {
-                allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
-                allowedCardNetworks: ["MASTERCARD", "VISA"],
-              },
-              tokenizationSpecification: {
-                type: "PAYMENT_GATEWAY",
-                parameters: {
-                  gateway: "example",
-                  gatewayMerchantId: "exampleGatewayMerchantId",
-                },
-              },
-            },
-          ],
-          merchantInfo: {
-            merchantId: "12345678901234567890",
-            merchantName: "Demo Merchant",
-          },
-          transactionInfo: {
-            totalPriceStatus: "FINAL",
-            totalPriceLabel: "Total",
-            totalPrice: "100.00",
-            currencyCode: "USD",
-            countryCode: "US",
-          },
-        }}
-        onLoadPaymentData={(paymentRequest) => {
-          console.log("load payment data", paymentRequest);
-        }}
-      /> */}
+      {/* <div id="applepay-container"></div> */}
     </form>
   );
 }
