@@ -18,7 +18,7 @@ export default function Menu({ setIsMenu }) {
         </svg>
       </div>
 
-      <Nav />
+      <Nav setIsMenu={setIsMenu} />
     </div>
   );
 }
