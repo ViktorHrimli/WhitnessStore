@@ -72,7 +72,7 @@ var Sertificates = () => {
     <article>
       <section className={styles.section}>
         <div className={styles.container}>
-          <p className={styles.title}>Zertifikat</p>
+          <p className={styles.title}>Geschenkgutschein</p>
           <p className={styles.text}>Drucken Sie auf jeden Betrag ab 50 Euro</p>
           <form className={styles.form}>
             <input

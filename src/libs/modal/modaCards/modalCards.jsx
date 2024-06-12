@@ -214,7 +214,7 @@ export default function ModalCards({
                     <input
                       className={styles.select}
                       required
-                      value={addition ? addition : additionData[0]["item"]}
+                      value={addition ? addition : additionData[0]?.["item"]}
                       readOnly
                       id="addition"
                       type="text"

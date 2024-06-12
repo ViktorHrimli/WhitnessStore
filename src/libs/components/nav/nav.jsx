@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import {services, delivery} from "@/shared/list"
 
-export default function Nav() {
+export default function Nav({setIsMenu}) {
   const [onHover, setOnHover] = useState(false);
   const [onHoverDelivery, setOnHoverDelivery] = useState(false);
 
@@ -23,7 +23,7 @@ export default function Nav() {
     <>
     <ul className={styles.list}>
       <li className={styles.link}><a href="/">HAUPTSEITE</a></li>
-      <li className={styles.link} onMouseOver={() => setOnHover(false)}><a href="sertificates">ZERTIFIKAT</a></li>
+      <li className={styles.link} onMouseOver={() => setOnHover(false)} onClick={()=> setIsMenu(false)}><a href="geschenkgutschein">geschenkgutschein</a></li>
         <li style={{ position: "relative" }} className={styles.link}
           onClick={handleClickOnMenu}
           onMouseOver={() => setOnHover(true)}>
@@ -38,13 +38,13 @@ export default function Nav() {
                 </li>
               {services.map((item, id) => (
                 <li key={id} className={styles.link}>
-                  <Link href={item.link}>{item.title}</Link>
+                  <Link href={item.link } onClick={()=> setIsMenu(false)}>{item.title}</Link>
                 </li>
               ))}
             </ul>
         )}
       </li>
-        <li className={styles.link} onMouseOver={() => setOnHover(false) & setOnHoverDelivery(false)}><a href="how-to-choose-underwear">GRÖßENTABELLE</a></li>
+        <li className={styles.link} onMouseOver={() => setOnHover(false) & setOnHoverDelivery(false)}><a href="how-to-choose-underwear" onClick={()=> setIsMenu(false)}>GRÖßENTABELLE</a></li>
         
         <li className={styles.link} style={{ position: "relative" }}
           onClick={handleClickOnMenuDelivery}
@@ -60,13 +60,13 @@ export default function Nav() {
               </li>
               {delivery.map((item, id) => (
                 <li key={id} className={styles.link}>
-                  <Link href={item.link}>{item.title}</Link>
+                  <Link href={item.link} onClick={()=> setIsMenu(false)}>{item.title}</Link>
                 </li>
               ))}
             </ul>
           )}
       </li>
-      <li className={styles.link} onMouseOver={() => setOnHoverDelivery(false)}><a href="brand-concept">MARKENKONZEPT</a></li>
+      <li className={styles.link} onMouseOver={() => setOnHoverDelivery(false)} onClick={()=> setIsMenu(false)}><a href="brand-concept">MARKENKONZEPT</a></li>
     </ul>
     </>
   );

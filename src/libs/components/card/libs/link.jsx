@@ -63,7 +63,7 @@ export default function List({
           {isHover ? (
             <Image
               src={`${"https://whitness-store.online"}${
-                mainImg["data"]["attributes"]["url"]
+                mainImg["data"]?.["attributes"]["url"]
               }`}
               alt="img"
               width={400}
@@ -75,7 +75,7 @@ export default function List({
           ) : (
             <Image
               src={`${"https://whitness-store.online"}${
-                second_img["data"]["attributes"]["url"]
+                second_img["data"]?.["attributes"]["url"]
               }`}
               alt="img"
               width={400}
