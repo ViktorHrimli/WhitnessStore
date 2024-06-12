@@ -15,9 +15,8 @@ import { Scripts } from "@/libs/components/scripts/Scripts";
 export default async function RootLayout({ children }) {
   return (
     <html lang="de-DE">
-      <Head>
-        <Scripts />
-      </Head>
+      <Scripts />
+      <Head></Head>
 
       <body className={montserrat.className} suppressHydrationWarning={true}>
         <noscript>

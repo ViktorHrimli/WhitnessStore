@@ -10,19 +10,20 @@ const Scripts = () => {
     isClient && (
       <>
         <Script
+          strategy="afterInteractive"
           id="gtagId"
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-CN31QQ8Z8C"
         ></Script>
 
-        <Script id="gtagId1">
+        <Script id="gtagId1" async strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-CN31QQ8Z8C');`}
         </Script>
 
-        <Script id="suak-blyat-ebany-teg">
+        <Script id="suak-blyat-ebany-teg" async strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
