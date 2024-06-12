@@ -23,7 +23,7 @@ const Scripts = () => {
   gtag('config', 'G-CN31QQ8Z8C');`}
         </Script>
 
-        <Script id="suak-blyat-ebany-teg" strategy="afterInteractive">
+        <Script id="suak-blyat-ebany-teg" async strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=

@@ -15,19 +15,18 @@ import { Scripts } from "@/libs/components/scripts/Scripts";
 export default async function RootLayout({ children }) {
   return (
     <html lang="de-DE">
-      <Head>
-        <Scripts />
-      </Head>
+      <Scripts />
+      <Head></Head>
 
       <body className={montserrat.className} suppressHydrationWarning={true}>
-        {/* <noscript>
+        <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-TN2QSRR7"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
-        </noscript> */}
+        </noscript>
 
         <Header />
         <main className={styles.page}>{children}</main>
