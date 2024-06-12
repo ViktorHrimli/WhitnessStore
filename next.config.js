@@ -6,11 +6,26 @@ const nextConfig = {
     localeDetection: false,
   },
 
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers":
-      "Origin, X-Requested-With, Content-Type, Accept",
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
+  async headers() {
+    return [
+      {
+        source: "/",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value: "Origin, X-Requested-With, Content-Type, Accept",
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET,PUT,POST,DELETE",
+          },
+        ],
+      },
+    ];
   },
   images: {
     formats: ["image/webp"],
