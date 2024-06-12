@@ -21,7 +21,7 @@ export default async function RootLayout({ children }) {
       <body className={montserrat.className} suppressHydrationWarning={true}>
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-TN2QSRR7"
+            src="https://server-side-tagging-fzhgqopnmq-ew.a.run.app/ns.html?id=GTM-TN2QSRR7"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
