@@ -15,7 +15,7 @@ const Scripts = () => {
           src="https://www.googletagmanager.com/gtag/js?id=TAG_ID"
         ></Script>
 
-        <Script>
+        <Script id="gtagId1">
           {`window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
