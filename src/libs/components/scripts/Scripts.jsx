@@ -20,7 +20,10 @@ const Scripts = () => {
           {`window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-CN31QQ8Z8C');`}
+  
+  gtag('config', 'G-CN31QQ8Z8C', {
+     server_container_url: 'https://server-side-tagging-fzhgqopnmq-ew.a.run.app',
+  });`}
         </Script>
 
         <Script id="suak-blyat-ebany-teg" async strategy="afterInteractive">
