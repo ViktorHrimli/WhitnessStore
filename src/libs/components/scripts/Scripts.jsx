@@ -12,14 +12,14 @@ const Scripts = () => {
         <Script
           id="gtagId"
           async
-          src="https://www.googletagmanager.com/gtag/js?id=GTM-TN2QSRR7"
+          src="https://www.googletagmanager.com/gtag/js?id=G-CN31QQ8Z8C"
         ></Script>
 
         <Script id="gtagId1">
           {`window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'GTM-TN2QSRR7');`}
+  gtag('config', 'G-CN31QQ8Z8C');`}
         </Script>
       </>
     )
