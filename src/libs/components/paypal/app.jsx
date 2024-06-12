@@ -23,11 +23,15 @@ const App = ({ amount, totalPrice, doOnSubmit }) => {
   };
 
   useEffect(() => {
-    fetch("https://www.space-test-space.space/api/token", {
+    fetch("http://localhost:8888/paypal/api/token", {
       method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
     })
       .then((res) => res.json())
-      .then((res) => setClientToken(res.client_token));
+      .then((res) => setClientToken(res.client_token))
+      .catch((e) => console.log(e));
 
     console.log(isTotalPrice);
   }, []);

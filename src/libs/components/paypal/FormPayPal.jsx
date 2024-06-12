@@ -7,23 +7,20 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 
 async function createOrderCallback(totalPrice) {
   try {
-    const response = await fetch(
-      "https://www.space-test-space.space/api/orders",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          cart: [
-            {
-              id: "12",
-              price: totalPrice,
-            },
-          ],
-        }),
-      }
-    );
+    const response = await fetch("http://localhost:8888/paypal/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cart: [
+          {
+            id: "12",
+            price: totalPrice,
+          },
+        ],
+      }),
+    });
 
     const orderData = await response.json();
 
@@ -46,7 +43,7 @@ async function createOrderCallback(totalPrice) {
 async function onApproveCallback(data, actions) {
   try {
     const response = await fetch(
-      `https://www.space-test-space.space/api/orders/${data.orderID}/capture`,
+      `http://localhost:8888/paypal/api/orders/${data.orderID}/capture`,
       {
         method: "POST",
         headers: {
