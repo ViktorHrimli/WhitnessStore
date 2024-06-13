@@ -13,7 +13,7 @@ const Scripts = () => {
           strategy="afterInteractive"
           id="gtagId"
           async
-          src="https://server-side-tagging-fzhgqopnmq-ew.a.run.app/gtag/js?id=G-CN31QQ8Z8C"
+          src="https://metrics.actumtest.site/gtag/js?id=G-CN31QQ8Z8C"
         ></Script>
 
         <Script id="gtagId1" async strategy="afterInteractive">
@@ -22,7 +22,7 @@ const Scripts = () => {
   gtag('js', new Date());
   
   gtag('config', 'G-CN31QQ8Z8C', {
-     server_container_url: 'https://server-side-tagging-fzhgqopnmq-ew.a.run.app',
+     server_container_url: 'https://metrics.actumtest.site/',
   });`}
         </Script>
 
@@ -30,7 +30,7 @@ const Scripts = () => {
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://server-side-tagging-fzhgqopnmq-ew.a.run.app/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+'https://metrics.actumtest.site/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-TN2QSRR7');
 `}
         </Script>
