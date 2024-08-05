@@ -16,9 +16,9 @@ var Home = async () => {
     <>
       <Hero />
       <Wrapper>
-        <Description />
-        <Search />
-        <Price data={data} />
+      <Description />
+      <Search />
+      <Price data={data} />
       </Wrapper>
       <About />
       <Afford />

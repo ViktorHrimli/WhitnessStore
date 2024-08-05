@@ -1,6 +1,5 @@
 "use client";
-
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { DataContext } from "@/libs/components/wrapper/wraper_context";
 
 import style from "./Description.module.scss";
@@ -29,6 +28,7 @@ export default function Description() {
               {services.map((item, id) => (
                 <li key={id} className={style.btn}>
                   <button
+                    className={style.item_btn}
                     type="button"
                     onClick={() =>
                       setisData((prev) =>
