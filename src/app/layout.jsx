@@ -10,11 +10,24 @@ import Head from "next/head";
 
 const montserrat = Montserrat({ subsets: ["cyrillic"] });
 
+import { Scripts } from "@/libs/components/scripts/Scripts";
+
 export default async function RootLayout({ children }) {
   return (
     <html lang="de-DE">
+      <Scripts />
       <Head></Head>
+
       <body className={montserrat.className} suppressHydrationWarning={true}>
+        <noscript>
+          <iframe
+            src="https://metrics.actumtest.site/ns.html?id=GTM-TN2QSRR7"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
+
         <Header />
         <main className={styles.page}>{children}</main>
         <Footer />
