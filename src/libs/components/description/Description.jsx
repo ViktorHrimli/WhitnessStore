@@ -1,13 +1,15 @@
 "use client";
 import { useContext } from "react";
 import { DataContext } from "@/libs/components/wrapper/wraper_context";
+import { getFormById } from "@/shared/getFormById";
+
 
 import style from "./Description.module.scss";
 import { services } from "@/shared/list";
 
 export default function Description() {
   var { setisData } = useContext(DataContext);
-
+  
   return (
     <>
       <section className={style.section}>
@@ -26,14 +28,14 @@ export default function Description() {
             </p>
             <ul className={style.container_btn}>
               {services.map((item, id) => (
-                <li key={id} className={style.btn}>
+                <li key={id} className={style.btn} >
                   <button
                     className={style.item_btn}
                     type="button"
                     onClick={() =>
                       setisData((prev) =>
                         prev === item.title ? "" : item.title
-                      )
+                      ) & getFormById("card")
                     }
                   >
                     {item.title}

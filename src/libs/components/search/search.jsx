@@ -2,7 +2,7 @@ import styles from "./search.module.scss";
 
 export default function Search() {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} id="card">
       <div className={styles.container}>
         <div className={styles.container_input}>
           <div className={styles.position}>
