@@ -97,9 +97,15 @@
     background-position: center center;
     border-color: #242121;
     border-style: solid;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
     height: 70px;
     width: 300px;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+        -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    }
 }
 
 .item_btn {
@@ -108,4 +114,5 @@
     background: transparent;
     border: none;
     outline: none;
+    cursor: pointer;
 }

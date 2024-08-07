@@ -209,19 +209,24 @@ export default function ModalCards({
                   </ul>
                 )}
                 <div>
+                  {addition && (
+                    <>
                   <label className={styles.description}>Zusatz</label>
                   <div style={{ position: "relative", width: "100%" }}>
-                    <input
-                      className={styles.select}
-                      required
-                      value={addition ? addition : additionData[0]?.["item"]}
-                      readOnly
-                      id="addition"
-                      type="text"
-                      onClick={onClickAddition}
-                    />
+                    
+                      <input
+                        className={styles.select}
+                        required
+                        value={addition ? addition : additionData[0]?.["item"]}
+                        readOnly
+                        id="addition"
+                        type="text"
+                        onClick={onClickAddition}
+                      />
                     <Icon onClick={onClickAddition} />
-                  </div>
+                      </div>
+                    </>
+                  )}
                 </div>
                 {isOpenAddition && (
                   <ul className={styles.select_menu}>
@@ -251,7 +256,7 @@ export default function ModalCards({
                   Unterbrustumfang
                   <input
                     className={styles.input}
-                    type="text"
+                    type="number"
                     id="unterbrustumfang"
                     name="unterbrustumfang"
                     placeholder="Umfang in Zentimetern"
@@ -263,7 +268,7 @@ export default function ModalCards({
                   Brustumfang
                   <input
                     className={styles.input}
-                    type="text"
+                    type="number"
                     id="brustumfang"
                     name="brustumfang"
                     placeholder="Umfang in Zentimetern"
@@ -275,7 +280,7 @@ export default function ModalCards({
                   Hüftumfang
                   <input
                     className={styles.input}
-                    type="text"
+                    type="number"
                     id="hüftumfang"
                     name="hüftumfang"
                     placeholder="Umfang in Zentimetern"
@@ -287,7 +292,7 @@ export default function ModalCards({
                   Taillenumfang
                   <input
                     className={styles.input}
-                    type="text"
+                    type="number"
                     id="taillenumfang"
                     name="taillenumfang"
                     placeholder="Umfang in Zentimetern"

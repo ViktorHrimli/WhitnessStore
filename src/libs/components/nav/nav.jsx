@@ -25,8 +25,7 @@ export default function Nav({setIsMenu}) {
       <li className={styles.link}><a href="/">HAUPTSEITE</a></li>
       <li className={styles.link} onMouseOver={() => setOnHover(false)} onClick={()=> setIsMenu(false)}><a href="geschenkgutschein">geschenkgutschein</a></li>
         <li style={{ position: "relative" }} className={styles.link}
-          onClick={handleClickOnMenu}
-          onMouseOver={() => setOnHover(true)}>
+          onClick={handleClickOnMenu}>
         <div className={styles.adaptive}>
           <p>KATALOG</p>
           <svg className={styles.triangle} xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"><path fill="currentColor" d="M21 20.794H3a1 1 0 0 1-.866-1.5l9-15.588a1.04 1.04 0 0 1 1.732 0l9 15.588a1 1 0 0 1-.866 1.5Z" /></svg>
@@ -47,8 +46,7 @@ export default function Nav({setIsMenu}) {
         <li className={styles.link} onMouseOver={() => setOnHover(false) & setOnHoverDelivery(false)}><a href="how-to-choose-underwear" onClick={()=> setIsMenu(false)}>GRÖßENTABELLE</a></li>
         
         <li className={styles.link} style={{ position: "relative" }}
-          onClick={handleClickOnMenuDelivery}
-          onMouseOver={() => setOnHoverDelivery(true)}>
+          onClick={handleClickOnMenuDelivery}>
           <div className={styles.adaptive}>
             <p>BESTELLBEDINGUNGEN</p>
             <svg className={styles.triangle} xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"><path fill="currentColor" d="M21 20.794H3a1 1 0 0 1-.866-1.5l9-15.588a1.04 1.04 0 0 1 1.732 0l9 15.588a1 1 0 0 1-.866 1.5Z" /></svg>

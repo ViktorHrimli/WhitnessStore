@@ -125,7 +125,7 @@ export default function Form({ totalCardPrice }) {
         onChange={theUsePromoCode}
       />
 
-      {isError && <h1>{isError}</h1>}
+      {/* {isError && <h1>{isError}</h1>} */}
 
       {/* input  */}
       <label className={stules.title}>
