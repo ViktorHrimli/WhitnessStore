@@ -80,9 +80,19 @@
     gap: 30px;
     margin-top: 50px;
     margin-bottom: 50px;
+    
+    @media (max-width: 767px) {
+        gap: 15px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
 }
 
 .btn {
+    @media (max-width: 767px) {
+        height: 40px;
+        border-radius: 5px;
+    }
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,6 +110,7 @@
     height: 70px;
     width: 300px;
     transition: 0.3s ease-in-out;
+    overflow: hidden;
 
     &:hover {
         -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
@@ -114,5 +125,12 @@
     background: transparent;
     border: none;
     outline: none;
+    color: #242121;
     cursor: pointer;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+        color: #fcfcfc;
+        background-color: #242121;
+    }
 }
