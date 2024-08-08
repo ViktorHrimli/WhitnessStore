@@ -143,7 +143,7 @@ export default function ModalCards({
 
             <form action="" className={styles.form_container}>
               <div className={styles.form}>
-                <div>
+                <div >
                   <label className={styles.description}>Ausrüstung</label>
                   <div style={{ position: "relative", width: "100%" }}>
                     <input

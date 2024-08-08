@@ -22,6 +22,7 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  cursor: pointer;
 }
 
 .box_img {
@@ -78,4 +79,9 @@
   cursor: pointer;
   box-sizing: border-box;
   width: 250px;
+
+  &:hover {
+      color: #fcfcfc;
+      background-color: #242121;
+    }
 }
